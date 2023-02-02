@@ -3,17 +3,23 @@ package kg.mega.cinema.service.impl;
 import kg.mega.cinema.dao.MovieRep;
 import kg.mega.cinema.mappers.MovieMapper;
 import kg.mega.cinema.models.dto.MovieDto;
+import kg.mega.cinema.models.requests.SaveMovieRequest;
 import kg.mega.cinema.service.MovieService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 @Service
 public class MovieServiceImpl implements MovieService {
-    @Autowired
-    MovieRep rep;
+    MovieMapper mapper = MovieMapper.INSTANCE;
 
-    MovieMapper mapper=MovieMapper.INSTANCE;
+    private final MovieRep rep;
+
+    public MovieServiceImpl(MovieRep rep) {
+        this.rep = rep;
+    }
 
     @Override
     public MovieDto save(MovieDto movieDto) {
@@ -21,21 +27,42 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieDto findById(Long id) {
+    public MovieDto create(SaveMovieRequest movie) {
+        MovieDto movieDto = new MovieDto();
+        movieDto.setName(movie.getName());
+        movieDto.setDefinition(movie.getDefinition());
+        movieDto.setRating(movie.getRating());
+        movieDto.setPg(movie.getPg());
+        movieDto.setImage(movie.getImage());
 
-        return mapper.toDto(rep.findById(id).orElseThrow(()->new RuntimeException("Фильм не найден")));
+        return save(movieDto);
+    }
+
+
+    @Override
+    public List<String> getAllMovies(int limit, int offset) {
+        List<MovieDto> movieList = mapper.toDtos(rep.getAllMovies(limit,offset));
+        List<String> allMovieList = new ArrayList<>();
+        for (MovieDto item:movieList){
+            allMovieList.add("ID="+item.getId()+", "+item.getName()+", "+item.getImage()+ ", " +item.getPg());
+        }
+        return allMovieList;
     }
 
     @Override
-    public List<MovieDto> findAll() {
-
-        return mapper.toDtos(rep.findAll());
+    public MovieDto findById(Long id) {
+        return mapper.toDto(rep.findById(id).orElseThrow(() -> new RuntimeException("Movie not found!")));
     }
 
     @Override
     public MovieDto delete(Long id) {
-        MovieDto movieDto=findById(id);
+        MovieDto movieDto = findById(id);
         movieDto.setActive(false);
         return save(movieDto);
+    }
+
+    @Override
+    public List<MovieDto> findAll() {
+        return mapper.toDtos(rep.findAll());
     }
 }

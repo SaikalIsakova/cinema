@@ -6,20 +6,23 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.io.File;
-import java.time.LocalDateTime;
+import java.util.Date;
+
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CinemaDto {
+public class CinemaDto{
     Long id;
     String name;
     String address;
-    String image;
-    @JsonIgnore
-    LocalDateTime addDate;
-    @JsonIgnore
-    LocalDateTime updateDate;
-    @JsonIgnore
+    String logo;
     boolean active;
+    Date addDate;
+    Date updateDate;
+
+
+
+
+
+
 }

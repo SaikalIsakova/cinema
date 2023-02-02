@@ -5,18 +5,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class MovieSessionDto {
+public class RoomMoviePriceDto {
     Long id;
-    RoomDto room;
-    MovieDto movie;
-    ScheduleDto schedule;
     PriceDto price;
-    LocalDateTime addDate;
-    LocalDateTime updateDate;
+    RoomMovieDto roomMovie;
     boolean active;
+    Date addDate;
+    Date updateDate;
 }

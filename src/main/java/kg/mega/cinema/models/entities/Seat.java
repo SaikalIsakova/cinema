@@ -4,29 +4,42 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
-@Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name="tb_seat")
-
-public class Seat {
+@Table(name = "tb_seat")
+public class Seat{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    int numberOfSeat;
-    int row;
-
+    int number;
     @ManyToOne
-    @JoinColumn(name="room_id")
     Room room;
-
-    LocalDateTime addDate;
-    LocalDateTime updateTime;
+    int row;
     boolean active;
+    Date addDate;
+    Date updateDate;
+
+
+
+    @PrePersist
+    protected void onCreate() {
+        addDate=new Date();
+        updateDate = new Date();
+        active = true;
+    }
+
+    @PreUpdate
+    protected void OnUpdate(){
+        updateDate=new Date();
+    }
+
+
+
 
 }

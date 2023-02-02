@@ -4,30 +4,44 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
-@Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name="tb_order_detail")
-public class OrderDetail {
+@Table(name = "tb_order_detail")
+public class OrderDetail{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
-
     @ManyToOne
-    @JoinColumn(name="seat_schedule_id")
-    Ticket ticket;
-
+    SeatSchedule schedule;
     @ManyToOne
-    @JoinColumn(name="order_id")
     Order order;
-
-    LocalDateTime addDate;
-    LocalDateTime updateDate;
     boolean active;
+    Date addDate;
+    Date updateDate;
+
+
+
+    @PrePersist
+    protected void onCreate() {
+        addDate=new Date();
+        updateDate = new Date();
+        active = true;
+    }
+
+    @PreUpdate
+    protected void OnUpdate(){
+        updateDate=new Date();
+    }
+
+
+
+
+
 }

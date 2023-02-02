@@ -1,4 +1,4 @@
-package kg.mega.cinema.controller;
+package kg.mega.cinema.controllers;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,17 +11,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(tags = "Order")
 @RestController
-@RequestMapping("/api/v2/order")
-@Api(tags = "Заявка")
+@RequestMapping("/api/v1/order")
 public class OrderController {
 
     @Autowired
-    OrderService service;
-
+    private OrderService service;
 
     @PostMapping("/save")
-    @ApiOperation("Сохранение.")
+    @ApiOperation("Сохранение")
     ResponseEntity<?> save(@RequestBody OrderDto orderDto) {
         try {
             return new ResponseEntity<>(service.save(orderDto), HttpStatus.CREATED);
@@ -30,33 +29,26 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/find/by/id")
-    @ApiOperation("Найти по id.")
-    ResponseEntity<?>findById(@RequestParam Long id) {
-        try {
-            return new ResponseEntity<>(service.findById(id), HttpStatus.FOUND);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
-    }
+    @GetMapping("/findById")
+    @ApiOperation("Поиск брони по id")
+    ResponseEntity<?> findById(@RequestParam Long id) {
 
-    @GetMapping("/find/all")
-    @ApiOperation("Вывод списка.")
-    ResponseEntity<List<OrderDto>>findAll(){
+        return new ResponseEntity<>(service.findById(id), HttpStatus.FOUND);
+
+    }
+    @GetMapping("/findAll")
+    @ApiOperation("Вывод брони")
+    ResponseEntity<List<OrderDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 
     @DeleteMapping("/delete")
-    @ApiOperation("Удаление.")
-    ResponseEntity<?>delete(@RequestParam Long id) {
+    @ApiOperation("Удаление")
+    ResponseEntity<?> delete(@RequestParam Long id) {
         try {
             return ResponseEntity.ok(service.delete(id));
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
-
-
-
-
 }

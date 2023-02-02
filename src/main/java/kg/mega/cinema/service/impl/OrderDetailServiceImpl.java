@@ -4,17 +4,18 @@ import kg.mega.cinema.dao.OrderDetailRep;
 import kg.mega.cinema.mappers.OrderDetailMapper;
 import kg.mega.cinema.models.dto.OrderDetailDto;
 import kg.mega.cinema.service.OrderDetailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class OrderDetailServiceImpl implements OrderDetailService {
+    OrderDetailMapper mapper = OrderDetailMapper.INSTANCE;
 
-    @Autowired
-    OrderDetailRep rep;
+    private final OrderDetailRep rep;
 
-    OrderDetailMapper mapper=OrderDetailMapper.INSTANCE;
+    public OrderDetailServiceImpl(OrderDetailRep rep) {
+        this.rep = rep;
+    }
 
     @Override
     public OrderDetailDto save(OrderDetailDto orderDetailDto) {
@@ -23,21 +24,18 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
     @Override
     public OrderDetailDto findById(Long id) {
-
-        return mapper.toDto(rep.findById(id).orElseThrow(()->new RuntimeException("Заявка не найдена")));
-    }
-
-    @Override
-    public List<OrderDetailDto> findAll() {
-
-        return mapper.toDtos(rep.findAll());
+        return mapper.toDto(rep.findById(id).orElseThrow(()->new RuntimeException("Order detail not found!")));
     }
 
     @Override
     public OrderDetailDto delete(Long id) {
-
-        OrderDetailDto orderDetailDto=findById(id);
+        OrderDetailDto orderDetailDto = findById(id);
         orderDetailDto.setActive(false);
         return save(orderDetailDto);
+    }
+
+    @Override
+    public List<OrderDetailDto> findAll() {
+        return mapper.toDtos(rep.findAll());
     }
 }

@@ -1,20 +1,22 @@
 package kg.mega.cinema.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderDetailDto {
+
     Long id;
-    TicketDto seatSchedule;
+    SeatScheduleDto schedule;
     OrderDto order;
-    LocalDateTime addDate;
-    LocalDateTime updateDate;
     boolean active;
+    Date addDate;
+    Date updateDate;
 }

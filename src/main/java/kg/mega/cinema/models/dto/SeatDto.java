@@ -1,24 +1,23 @@
 package kg.mega.cinema.models.dto;
 
-import kg.mega.cinema.models.entities.Room;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import kg.mega.cinema.models.dto.RoomDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class SeatDto {
+public class SeatDto{
     Long id;
-    int numberOfSeat;
-    int row;
+    int number;
     RoomDto room;
-    LocalDateTime addDate;
-    LocalDateTime updateTime;
+    int row;
     boolean active;
+    Date addDate;
+    Date updateDate;
 }

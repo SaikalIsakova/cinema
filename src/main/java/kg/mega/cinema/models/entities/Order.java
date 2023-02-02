@@ -4,23 +4,41 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 
-@Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name="tb_order")
-public class Order {
+@Table(name = "tb_order")
+public class Order{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    double price;
-    LocalDateTime startDate;
-    LocalDateTime addDate;
-    LocalDateTime updateDate;
+    int price;
+    LocalTime startTime;
     boolean active;
+    Date addDate;
+    Date updateDate;
+
+
+
+    @PrePersist
+    protected void onCreate() {
+        addDate=new Date();
+        updateDate = new Date();
+        active = true;
+    }
+
+    @PreUpdate
+    protected void OnUpdate(){
+        updateDate=new Date();
+    }
 
 }
+
+

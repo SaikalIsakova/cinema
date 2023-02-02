@@ -1,21 +1,21 @@
 package kg.mega.cinema.models.dto;
 
-import kg.mega.cinema.models.enums.Type;
+import kg.mega.cinema.models.enums.PriceType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class PriceDto {
+public class PriceDto{
     Long id;
-    double price;
-    Type type;
-    LocalDateTime addDate;
-    LocalDateTime updateDate;
+    Double price;
+    PriceType priceType;
     boolean active;
+    Date addDate;
+    Date updateDate;
 }

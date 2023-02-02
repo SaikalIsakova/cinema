@@ -2,43 +2,89 @@ package kg.mega.cinema.service.impl;
 
 import kg.mega.cinema.dao.RoomMovieRep;
 import kg.mega.cinema.mappers.RoomMovieMapper;
-import kg.mega.cinema.models.dto.MovieSessionDto;
+import kg.mega.cinema.models.dto.MovieDto;
+import kg.mega.cinema.models.dto.RoomDto;
+import kg.mega.cinema.models.dto.RoomMovieDto;
+import kg.mega.cinema.models.dto.ScheduleDto;
+import kg.mega.cinema.models.requests.SaveRoomMovieRequest;
+import kg.mega.cinema.service.MovieService;
 import kg.mega.cinema.service.RoomMovieService;
-import org.springframework.beans.factory.annotation.Autowired;
+import kg.mega.cinema.service.RoomService;
+import kg.mega.cinema.service.ScheduleService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+
 @Service
 public class RoomMovieServiceImpl implements RoomMovieService {
+    RoomMovieMapper mapper = RoomMovieMapper.INSTANCE;
 
-    @Autowired
-    RoomMovieRep rep;
+    private final RoomMovieRep rep;
+    private final RoomService roomService;
+    private final MovieService movieService;
+    private final ScheduleService scheduleService;
 
-    RoomMovieMapper mapper=RoomMovieMapper.INSTANCE;
-
-    @Override
-    public MovieSessionDto save(MovieSessionDto movieSessionDto) {
-        return mapper.toDto(rep.save(mapper.toEntity(movieSessionDto)));
+    public RoomMovieServiceImpl(RoomMovieRep rep, RoomService roomService, MovieService movieService, ScheduleService scheduleService) {
+        this.rep = rep;
+        this.roomService = roomService;
+        this.movieService = movieService;
+        this.scheduleService = scheduleService;
+//        this.roomMoviePriceService = roomMoviePriceService;
     }
 
     @Override
-    public MovieSessionDto findById(Long id) {
-
-        return mapper.toDto(rep.findById(id).orElseThrow(()->new RuntimeException("Room-movie is not found")));
+    public RoomMovieDto save(RoomMovieDto roomMovieDto) {
+        return mapper.toDto(rep.save(mapper.toEntity(roomMovieDto)));
     }
 
     @Override
-    public List<MovieSessionDto> findAll() {
+    public RoomMovieDto findById(Long id) {
+        return mapper.toDto(rep.findById(id).orElseThrow(()->new RuntimeException("RoomMovie not found!")));
+    }
 
+    @Override
+    public RoomMovieDto delete(Long id) {
+        RoomMovieDto roomMovieDto = findById(id);
+        roomMovieDto.setActive(false);
+        return save(roomMovieDto);
+    }
+
+    @Override
+    public List<RoomMovieDto> findAll() {
         return mapper.toDtos(rep.findAll());
     }
 
+
     @Override
-    public MovieSessionDto delete(Long id) {
+    public List<RoomMovieDto> findByRoomId(Long roomId) {
 
-        MovieSessionDto movieSessionDto =findById(id);
-        movieSessionDto.setActive(false);
-
-        return save(movieSessionDto);
+        return mapper.toDtos(rep.findByRoomId(roomId));
     }
+
+
+    @Override
+    public List<RoomMovieDto> getSeance(Long movieId, LocalDate date) {
+        return mapper.toDtos(rep.getSeance(movieId,date));
+    }
+
+
+    @Override
+    public RoomMovieDto create(SaveRoomMovieRequest request) {
+        RoomDto roomDto=roomService.findById(request.getRoomId());
+        MovieDto movieDto=movieService.findById(request.getMovieId());
+        ScheduleDto scheduleDto=scheduleService.findById(request.getScheduleId());
+
+        RoomMovieDto roomMovieDto=new RoomMovieDto();
+        roomMovieDto.setMovie(movieDto);
+        roomMovieDto.setSchedule(scheduleDto);
+        roomMovieDto.setRoom(roomDto);
+
+        return save(roomMovieDto);
+    }
+
+
+
+
+
 }

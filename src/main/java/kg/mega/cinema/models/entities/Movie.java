@@ -4,28 +4,42 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.io.File;
-import java.time.LocalDateTime;
+import java.util.Date;
 
-@Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name="tb_movie")
-public class Movie {
+@Table(name = "tb_movie")
+public class Movie{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    String definition;
     String name;
-    String description;
-    String image;
-    double rating;
-    int ageLimit;
-    LocalDateTime addDate;
-    LocalDateTime updateDate;
+    Double rating;
+    String pg;
     boolean active;
+    String image;
+    Date addDate;
+    Date updateDate;
+
+
+
+    @PrePersist
+    protected void onCreate() {
+        addDate=new Date();
+        updateDate = new Date();
+        active = true;
+    }
+
+    @PreUpdate
+    protected void OnUpdate(){
+        updateDate=new Date();
+    }
 
 
 }

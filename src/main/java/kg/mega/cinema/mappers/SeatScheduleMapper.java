@@ -1,10 +1,11 @@
 package kg.mega.cinema.mappers;
 
-import kg.mega.cinema.models.dto.TicketDto;
+import kg.mega.cinema.models.dto.SeatScheduleDto;
+import kg.mega.cinema.models.entities.SeatSchedule;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface SeatScheduleMapper extends BaseMapper<kg.mega.cinema.models.entities.Ticket, TicketDto>{
+public interface SeatScheduleMapper extends BaseMapper<SeatSchedule, SeatScheduleDto>{
     SeatScheduleMapper INSTANCE= Mappers.getMapper(SeatScheduleMapper.class);
 }
