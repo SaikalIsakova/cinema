@@ -21,7 +21,7 @@ public class OrderDetail {
 
     @ManyToOne
     @JoinColumn(name="seat_schedule_id")
-    SeatSchedule seatSchedule;
+    Ticket ticket;
 
     @ManyToOne
     @JoinColumn(name="order_id")

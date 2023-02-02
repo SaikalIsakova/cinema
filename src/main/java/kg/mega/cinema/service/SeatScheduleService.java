@@ -1,6 +1,6 @@
 package kg.mega.cinema.service;
 
-import kg.mega.cinema.models.dto.SeatScheduleDto;
+import kg.mega.cinema.models.dto.TicketDto;
 
-public interface SeatScheduleService extends BaseService<SeatScheduleDto>{
+public interface SeatScheduleService extends BaseService<TicketDto>{
 }

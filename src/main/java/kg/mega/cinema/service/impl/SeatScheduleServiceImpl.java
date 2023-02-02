@@ -2,7 +2,7 @@ package kg.mega.cinema.service.impl;
 
 import kg.mega.cinema.dao.SeatScheduleRep;
 import kg.mega.cinema.mappers.SeatScheduleMapper;
-import kg.mega.cinema.models.dto.SeatScheduleDto;
+import kg.mega.cinema.models.dto.TicketDto;
 import kg.mega.cinema.service.SeatScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,26 +17,26 @@ public class SeatScheduleServiceImpl implements SeatScheduleService {
     SeatScheduleMapper mapper=SeatScheduleMapper.INSTANCE;
 
     @Override
-    public SeatScheduleDto save(SeatScheduleDto seatScheduleDto) {
-        return mapper.toDto(rep.save(mapper.toEntity(seatScheduleDto)));
+    public TicketDto save(TicketDto ticketDto) {
+        return mapper.toDto(rep.save(mapper.toEntity(ticketDto)));
     }
 
     @Override
-    public SeatScheduleDto findById(Long id) {
+    public TicketDto findById(Long id) {
 
         return mapper.toDto(rep.findById(id).orElseThrow(()->new RuntimeException("seat-schedule not found")));
     }
 
     @Override
-    public List<SeatScheduleDto> findAll() {
+    public List<TicketDto> findAll() {
 
         return mapper.toDtos(rep.findAll());
     }
 
     @Override
-    public SeatScheduleDto delete(Long id) {
+    public TicketDto delete(Long id) {
 
-        SeatScheduleDto scheduleDto=findById(id);
+        TicketDto scheduleDto=findById(id);
         scheduleDto.setActive(false);
         return save(scheduleDto);
     }

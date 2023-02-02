@@ -13,21 +13,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name="tb_room_movie")
-public class RoomMovie {
+public class MovieSession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
 
     @ManyToOne
     @JoinColumn(name="room_id")
     Room room;
 
-
     @ManyToOne
     @JoinColumn(name="movie_id")
     Movie movie;
-
 
     @ManyToOne
     @JoinColumn(name="schedule_id")

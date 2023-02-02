@@ -2,8 +2,7 @@ package kg.mega.cinema.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import kg.mega.cinema.models.dto.PriceDto;
-import kg.mega.cinema.models.dto.RoomMovieDto;
+import kg.mega.cinema.models.dto.MovieSessionDto;
 import kg.mega.cinema.service.RoomMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,9 +21,9 @@ public class RoomMovieController {
 
     @PostMapping("/save")
     @ApiOperation("Сохранение.")
-    ResponseEntity<?> save(@RequestBody RoomMovieDto roomMovieDto) {
+    ResponseEntity<?> save(@RequestBody MovieSessionDto movieSessionDto) {
         try {
-            return new ResponseEntity<>(service.save(roomMovieDto), HttpStatus.CREATED);
+            return new ResponseEntity<>(service.save(movieSessionDto), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
@@ -42,7 +41,7 @@ public class RoomMovieController {
 
     @GetMapping("/find/all")
     @ApiOperation("Вывод списка.")
-    ResponseEntity<List<RoomMovieDto>>findAll(){
+    ResponseEntity<List<MovieSessionDto>>findAll(){
         return ResponseEntity.ok(service.findAll());
     }
 

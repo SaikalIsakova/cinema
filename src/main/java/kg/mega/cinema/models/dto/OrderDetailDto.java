@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Getter
@@ -14,7 +12,8 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderDetailDto {
     Long id;
-    SeatScheduleDto seatScheduleDto;
+    TicketDto seatSchedule;
+    OrderDto order;
     LocalDateTime addDate;
     LocalDateTime updateDate;
     boolean active;

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class RoomDto {
     Long id;
     int seatCount;
-    CinemaDto cinemaDto;
+    CinemaDto cinema;
     LocalDateTime addTime;
     LocalDateTime updateTime;
     boolean active;

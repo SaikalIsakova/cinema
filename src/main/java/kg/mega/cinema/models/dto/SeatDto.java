@@ -17,7 +17,7 @@ public class SeatDto {
     Long id;
     int numberOfSeat;
     int row;
-    RoomDto roomDto;
+    RoomDto room;
     LocalDateTime addDate;
     LocalDateTime updateTime;
     boolean active;

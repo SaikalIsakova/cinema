@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name="tb_seat_schedule")
-public class SeatSchedule {
+public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -23,10 +23,9 @@ public class SeatSchedule {
     @JoinColumn(name ="seat_id")
     Seat seat;
 
-
     @ManyToOne
     @JoinColumn(name="room_movie_id")
-    RoomMovie roomMovie;
+    MovieSession movieSession;
 
     Status status;
     LocalDateTime addDate;

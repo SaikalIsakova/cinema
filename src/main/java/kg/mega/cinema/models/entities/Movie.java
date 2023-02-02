@@ -20,7 +20,7 @@ public class Movie {
     Long id;
     String name;
     String description;
-    File image;
+    String image;
     double rating;
     int ageLimit;
     LocalDateTime addDate;

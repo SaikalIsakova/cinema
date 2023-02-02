@@ -2,7 +2,6 @@ package kg.mega.cinema.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import kg.mega.cinema.models.dto.RoomMovieDto;
 import kg.mega.cinema.models.dto.ScheduleDto;
 import kg.mega.cinema.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;

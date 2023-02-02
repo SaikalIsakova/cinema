@@ -21,7 +21,7 @@ public class PriceController {
 
     @PostMapping("/save")
     @ApiOperation("Сохранение.")
-    ResponseEntity<?> save(@RequestBody PriceDto priceDto) {
+    ResponseEntity<?> save(@ModelAttribute PriceDto priceDto) {
         try {
             return new ResponseEntity<>(service.save(priceDto), HttpStatus.CREATED);
         } catch (Exception e) {

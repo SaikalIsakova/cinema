@@ -2,7 +2,7 @@ package kg.mega.cinema.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import kg.mega.cinema.models.dto.SeatScheduleDto;
+import kg.mega.cinema.models.dto.TicketDto;
 import kg.mega.cinema.service.SeatScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class SeatScheduleController {
 
     @PostMapping("/save")
     @ApiOperation("Сохранение.")
-    ResponseEntity<?> save(@RequestBody SeatScheduleDto scheduleDto) {
+    ResponseEntity<?> save(@RequestBody TicketDto scheduleDto) {
         try {
             return new ResponseEntity<>(service.save(scheduleDto), HttpStatus.CREATED);
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class SeatScheduleController {
 
     @GetMapping("/find/all")
     @ApiOperation("Вывод списка.")
-    ResponseEntity<List<SeatScheduleDto>>findAll(){
+    ResponseEntity<List<TicketDto>>findAll(){
         return ResponseEntity.ok(service.findAll());
     }
 
