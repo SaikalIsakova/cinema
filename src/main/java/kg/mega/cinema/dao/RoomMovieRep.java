@@ -14,7 +14,7 @@ public interface RoomMovieRep extends JpaRepository<RoomMovie,Long> {
     List<RoomMovie> findByRoomId(Long roomId);
 
     @Query("select r from RoomMovie r " +
-            "inner join Schedule s on r.id=s.id " +
+            "inner join Schedule s on r.schedule.id=s.id " +
             "where r.movie.id=:movieId " +
             "and s.dateOfFilms=:date")
     List<RoomMovie> getRoomMovie(Long movieId, LocalDate date);

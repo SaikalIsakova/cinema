@@ -87,72 +87,46 @@ public class SeatScheduleServiceImpl implements SeatScheduleService {
 
     @Override
     public List<SeatScheduleResponse> getByRoomMovieId(Long roomMovieId) {
-
         //тут мы находим какие места куплены = их у меня 3
         List<SeatScheduleDto> seatScheduleList = findByRoomMovieId(roomMovieId);
-
         //тут мы находим зал по сеансу
         RoomDto roomDto = roomService.findByRoomMovieId(roomMovieId);
-
         //тут находим места по залу = их у меня 20
         List<SeatDto> seatList = seatService.findByRoomId(roomDto.getId());
-
         //это лист который надо вывести.
         List<SeatScheduleResponse> seatScheduleResList = new ArrayList<>();
 
-
-//            for (int j = 0; j < seatScheduleList.size(); j++) {
-//                for (int i = 0; i < seatList.size(); i++) {
-//
-//                SeatScheduleResponse response=new SeatScheduleResponse();
-//
-//                if(seatList.get(i).getId()==seatScheduleList.get(j).getSeat().getId()){
-//
-//                    response.setSeatNum(seatScheduleList.get(j).getSeat().getNumber());
-//                    response.setRow(seatScheduleList.get(j).getSeat().getRow());
-//                    response.setStatus(seatScheduleList.get(j).getSeatStatus());
-//                    response.setSeatScheduleId(seatScheduleList.get(j).getId());
-//
-//                }else{
-//
-//                    response.setSeatScheduleId(seatList.get(i).getId());
-//                    response.setRow(seatList.get(i).getRow());
-//                    response.setStatus(SeatStatus.FREE);
-//                    response.setSeatNum(seatList.get(i).getNumber());
-//                }
-//
-//                    seatScheduleResList.add(response);
-//            }
-//        }
+        SeatScheduleResponse seatScheduleResponse = new SeatScheduleResponse();
 
         for (SeatScheduleDto item : seatScheduleList) { // размер 3
             for (SeatDto item2 : seatList) { //размер 20
 
-                SeatScheduleResponse seatScheduleResponse = new SeatScheduleResponse();
-
                 if (item2.getId().equals(item.getSeat().getId())) {
-                    //если купленные места и айди мест совпадает то должны сохр как уже купленные
-
-                    seatScheduleResponse.setStatus(item.getSeatStatus());//тут статус солд
-                    seatScheduleResponse.setSeatScheduleId(item.getId());
-                    seatScheduleResponse.setSeatNum(item.getSeat().getNumber());
-                    seatScheduleResponse.setRow(item.getSeat().getRow());
-                    seatScheduleResList.add(seatScheduleResponse);
+                    for (SeatScheduleResponse newItem : seatScheduleResList) {
+//                        if (newItem.getSeatScheduleId())
+                        //если купленные места и айди мест совпадает то должны сохр как уже купленные
+                        seatScheduleResponse.setStatus(item.getSeatStatus());//тут статус солд
+                        seatScheduleResponse.setSeatScheduleId(item.getId());
+                        seatScheduleResponse.setSeatNum(item.getSeat().getNumber());
+                        seatScheduleResponse.setRow(item.getSeat().getRow());
+                        seatScheduleResList.add(seatScheduleResponse);
+                    }
                 }
                 else{
-                    //если айдишки не совпадают то free
-                    seatScheduleResponse.setSeatScheduleId(item2.getId());
-                    seatScheduleResponse.setSeatNum(item2.getNumber());
-                    seatScheduleResponse.setRow(item2.getRow());
-                    seatScheduleResponse.setStatus(SeatStatus.FREE);
-                    seatScheduleResList.add(seatScheduleResponse);
+                        //если айдишки не совпадают то free
+                        seatScheduleResponse.setSeatScheduleId(item2.getId());
+                        seatScheduleResponse.setSeatNum(item2.getNumber());
+                        seatScheduleResponse.setRow(item2.getRow());
+                        seatScheduleResponse.setStatus(SeatStatus.FREE);
+                        seatScheduleResList.add(seatScheduleResponse);
+                    }
+
                 }
 
             }
-
+            return seatScheduleResList;
         }
-        return seatScheduleResList;
-    }
 
     }
+
 

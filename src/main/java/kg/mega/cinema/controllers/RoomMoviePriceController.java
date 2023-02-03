@@ -60,9 +60,9 @@ public class RoomMoviePriceController {
 
     @GetMapping("/getPrice")
     @ApiOperation("Вывод-price")
-    ResponseEntity<List<RoomMoviePriceDto>> getPrice(@RequestParam Long roomMovieId) {
+    ResponseEntity<List<RoomMoviePriceDto>> getPrice(@RequestParam Long movieId,@RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
 
-        return ResponseEntity.ok(service.getPriceByRoomMovieId(roomMovieId));
+        return ResponseEntity.ok(service.getPriceByMovieIdAndDate(movieId,date));
     }
 
 

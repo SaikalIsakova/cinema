@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 @Service
 public class RoomMoviePriceServiceImpl implements RoomMoviePriceService {
@@ -74,55 +73,63 @@ public class RoomMoviePriceServiceImpl implements RoomMoviePriceService {
     }
 
     @Override
-    public List<RoomMoviePriceDto> getPriceByRoomMovieId(Long roomMovieId) {
+    public List<RoomMoviePriceDto> getPriceByMovieIdAndDate(Long movieId,LocalDate date) {
 
-        return mapper.toDtos(rep.getPriceByRoomMovieId(roomMovieId));
+        return mapper.toDtos(rep.getPriceByMovieIdAndDate(movieId,date));
     }
 
     @Override
     public JsonResponse getSeanceOutput(Long movieId, LocalDate date) {
 
-        List<RoomMoviePriceDto>roomMoviePriceDtos=getPriceByRoomMovieId(movieId);
+        List<RoomMoviePriceDto> roomMoviePriceDtos = getPriceByMovieIdAndDate(movieId, date);
 
-        List<RoomMovieResp>roomMovieResps=new ArrayList<>();
 
-        for(RoomMoviePriceDto item:roomMoviePriceDtos){
+        List<RoomMovieResp> roomMovieResps = new ArrayList<>();
 
-            RoomMovieResp roomMovieResp=new RoomMovieResp();
-
+        for (RoomMoviePriceDto item : roomMoviePriceDtos) { //5
+            RoomMovieResp roomMovieResp = new RoomMovieResp();
             roomMovieResp.setId(item.getRoomMovie().getId());
-            roomMovieResp.setPrice(item.getPrice().getPrice());
-            roomMovieResp.setPriceType(item.getPrice().getPriceType());
-            roomMovieResp.setStartTime(item.getRoomMovie().getSchedule().getStartTime());
+
+            for (RoomMovieResp roomMovieRespItem : roomMovieResps) {
+
+//                if (item.getRoomMovie().getSchedule().getStartTime().equals(roomMovieRespItem.getStartTime()))
+
+                    roomMovieResp.setPrice(item.getPrice().getPrice());
+                    roomMovieResp.setPriceType(item.getPrice().getPriceType());
+                    roomMovieResp.setStartTime(item.getRoomMovie().getSchedule().getStartTime());
+//                    roomMovieResps.add(roomMovieResp);
+
+            }
             roomMovieResps.add(roomMovieResp);
+
         }
 
 
+        List<RoomMovieDto> roomMovieDtos = roomMovieService.getRoomMovieByMovieAndDate(movieId, date);
+
+        List<RoomResponse> roomResponses = new ArrayList<>();
 
 
-        List<RoomMovieDto>roomMovieDtos=roomMovieService.getRoomMovieByMovieAndDate(movieId,date);
+        for (RoomMovieDto item : roomMovieDtos) {
 
-        List<RoomResponse>roomResponses=new ArrayList<>();
-
-
-        for(RoomMovieDto item:roomMovieDtos){
-
-            RoomResponse roomResponse=new RoomResponse();
+            RoomResponse roomResponse = new RoomResponse();
+            roomResponse.setRoomId(item.getRoom().getId());
             roomResponse.setName(item.getRoom().getName());
             roomResponse.setSeances(roomMovieResps);
             roomResponses.add(roomResponse);
         }
 
-        List<CinemaResponse>cinemaResponses=new ArrayList<>();
+        List<CinemaResponse> cinemaResponses = new ArrayList<>();
 
-        for(RoomMovieDto item:roomMovieDtos){
+        for (RoomMovieDto item : roomMovieDtos) {
 
             CinemaResponse cinemaResponse = new CinemaResponse();
             cinemaResponse.setName(item.getRoom().getCinema().getName());
             List<RoomResponse> newRoomResp = new ArrayList();
             for (RoomResponse roomResponseItem : roomResponses) {
 
-                if (item.getRoom().getName().equals(roomResponseItem.getName())) {
+//                if (item.getRoom().getName().equals(roomResponseItem.getName())) {
+                if (item.getRoom().getId().equals(roomResponseItem.getRoomId())) {
                     newRoomResp.add(roomResponseItem);
                 }
             }
@@ -132,7 +139,7 @@ public class RoomMoviePriceServiceImpl implements RoomMoviePriceService {
 
 
         JsonResponse jsonResponse = new JsonResponse();
-        for (RoomMoviePriceDto item:roomMoviePriceDtos){
+        for (RoomMoviePriceDto item : roomMoviePriceDtos) {
             jsonResponse.setCinemas(cinemaResponses);
             jsonResponse.setName(item.getRoomMovie().getMovie().getName());
             jsonResponse.setPg(item.getRoomMovie().getMovie().getPg());
@@ -142,5 +149,6 @@ public class RoomMoviePriceServiceImpl implements RoomMoviePriceService {
         }
         return jsonResponse;
     }
+
 }
 

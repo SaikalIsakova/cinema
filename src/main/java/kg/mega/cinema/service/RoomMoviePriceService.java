@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface RoomMoviePriceService extends BaseService<RoomMoviePriceDto>{
     RoomMoviePriceDto create(RoomMoviePriceRequest roomMoviePriceRequest);
-    List<RoomMoviePriceDto> getPriceByRoomMovieId(Long roomMovieId);
+    List<RoomMoviePriceDto> getPriceByMovieIdAndDate(Long movieId,LocalDate date);
     JsonResponse getSeanceOutput(Long movieId, LocalDate date);
 
 }
