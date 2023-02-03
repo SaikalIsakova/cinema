@@ -10,7 +10,9 @@ import java.util.List;
 @Repository
 public interface RoomMoviePriceRep extends JpaRepository<RoomMoviePrice, Long> {
 
-    @Query("select r from RoomMoviePrice r inner join RoomMovie m on r.roomMovie.id=m.id where m.movie.id=:movieId")
+    @Query("select r from RoomMoviePrice r " +
+            "inner join RoomMovie m on r.roomMovie.id=m.id " +
+            "where m.movie.id=:movieId")
     List<RoomMoviePrice> getPriceByRoomMovieId(Long movieId);
 
 }

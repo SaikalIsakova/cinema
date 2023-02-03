@@ -64,8 +64,8 @@ public class RoomMovieServiceImpl implements RoomMovieService {
 
 
     @Override
-    public List<RoomMovieDto> getSeance(Long movieId, LocalDate date) {
-        return mapper.toDtos(rep.getSeance(movieId,date));
+    public List<RoomMovieDto> getRoomMovieByMovieAndDate(Long movieId, LocalDate date) {
+        return mapper.toDtos(rep.getRoomMovie(movieId,date));
     }
 
 

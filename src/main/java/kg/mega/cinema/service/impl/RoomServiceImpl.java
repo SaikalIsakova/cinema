@@ -53,4 +53,10 @@ public class RoomServiceImpl implements RoomService {
         roomDto.setCinema(cinema);
         return save(roomDto);
     }
+
+    @Override
+    public RoomDto findByRoomMovieId(Long roomMovieId) {
+
+        return mapper.toDto(rep.findByRoomMovieId(roomMovieId));
+    }
 }

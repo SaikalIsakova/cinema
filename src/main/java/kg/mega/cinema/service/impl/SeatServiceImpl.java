@@ -62,6 +62,11 @@ public class SeatServiceImpl implements SeatService {
         return save(seatDto);
     }
 
+    @Override
+    public List<SeatDto> findByRoomId(Long id) {
+
+        return mapper.toDtos(rep.findByRoomId(id));
+    }
 
 
 }

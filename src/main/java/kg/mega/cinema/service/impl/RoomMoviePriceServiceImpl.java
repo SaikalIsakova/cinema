@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 @Service
 public class RoomMoviePriceServiceImpl implements RoomMoviePriceService {
@@ -99,7 +100,7 @@ public class RoomMoviePriceServiceImpl implements RoomMoviePriceService {
 
 
 
-        List<RoomMovieDto>roomMovieDtos=roomMovieService.getSeance(movieId,date);
+        List<RoomMovieDto>roomMovieDtos=roomMovieService.getRoomMovieByMovieAndDate(movieId,date);
 
         List<RoomResponse>roomResponses=new ArrayList<>();
 
@@ -116,12 +117,16 @@ public class RoomMoviePriceServiceImpl implements RoomMoviePriceService {
 
         for(RoomMovieDto item:roomMovieDtos){
 
-            CinemaResponse cinemaResponse=new CinemaResponse();
-            //TODO check
-            cinemaResponse.setRooms(roomResponses);
-
-
+            CinemaResponse cinemaResponse = new CinemaResponse();
             cinemaResponse.setName(item.getRoom().getCinema().getName());
+            List<RoomResponse> newRoomResp = new ArrayList();
+            for (RoomResponse roomResponseItem : roomResponses) {
+
+                if (item.getRoom().getName().equals(roomResponseItem.getName())) {
+                    newRoomResp.add(roomResponseItem);
+                }
+            }
+            cinemaResponse.setRooms(newRoomResp);
             cinemaResponses.add(cinemaResponse);
         }
 

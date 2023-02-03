@@ -3,6 +3,7 @@ package kg.mega.cinema.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import kg.mega.cinema.models.dto.SeatScheduleDto;
+import kg.mega.cinema.models.responses.SeatScheduleResponse;
 import kg.mega.cinema.service.SeatScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,6 +58,13 @@ public class SeatScheduleController {
     ResponseEntity<List<SeatScheduleDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
 
+    }
+
+
+    @GetMapping("/getdByRoomMovieId")
+    @ApiOperation("Поиск по id сеанса")
+    ResponseEntity<List<SeatScheduleResponse>> getByRoomMovieId(@RequestParam Long roomMovieId) {
+        return  ResponseEntity.ok(service.getByRoomMovieId(roomMovieId));
     }
 
 

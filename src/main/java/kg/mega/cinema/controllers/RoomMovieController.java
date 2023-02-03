@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @Api(tags = "Сеанс")
 @RestController
@@ -47,7 +46,7 @@ public class RoomMovieController {
     @ApiOperation("Поиск сеанса по id фильма и дате")
     ResponseEntity<?> findByDate(@RequestParam Long movieId, @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
 
-        return new ResponseEntity<>(service.getSeance(movieId,date), HttpStatus.FOUND);
+        return new ResponseEntity<>(service.getRoomMovieByMovieAndDate(movieId,date), HttpStatus.FOUND);
 
     }
 

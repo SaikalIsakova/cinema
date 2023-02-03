@@ -10,7 +10,7 @@ import java.util.List;
 public interface RoomMovieService extends BaseService<RoomMovieDto>{
     RoomMovieDto create(SaveRoomMovieRequest request);
     List<RoomMovieDto> findByRoomId(Long roomId);
-    List<RoomMovieDto>getSeance(Long movieId,LocalDate date);
+    List<RoomMovieDto> getRoomMovieByMovieAndDate(Long movieId, LocalDate date);
 
 
 }

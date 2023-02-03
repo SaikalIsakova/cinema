@@ -8,7 +8,6 @@ import kg.mega.cinema.service.MovieService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -40,8 +39,8 @@ public class MovieServiceImpl implements MovieService {
 
 
     @Override
-    public List<String> getAllMovies(int limit, int offset) {
-        List<MovieDto> movieList = mapper.toDtos(rep.getAllMovies(limit,offset));
+    public List<String> getPaginationResult(int limit, int offset) {
+        List<MovieDto> movieList = mapper.toDtos(rep.getPaginationResult(limit,offset));
         List<String> allMovieList = new ArrayList<>();
         for (MovieDto item:movieList){
             allMovieList.add("ID="+item.getId()+", "+item.getName()+", "+item.getImage()+ ", " +item.getPg());
