@@ -89,33 +89,45 @@ public class RoomMoviePriceServiceImpl implements RoomMoviePriceService {
         for (RoomMoviePriceDto item : roomMoviePriceDtos) { //5
             RoomMovieResp roomMovieResp = new RoomMovieResp();
             roomMovieResp.setId(item.getRoomMovie().getId());
+            roomMovieResp.setPrice(item.getPrice().getPrice());
+            roomMovieResp.setPriceType(item.getPrice().getPriceType());
+            roomMovieResp.setStartTime(item.getRoomMovie().getSchedule().getStartTime());
 
-            for (RoomMovieResp roomMovieRespItem : roomMovieResps) {
-
-//                if (item.getRoomMovie().getSchedule().getStartTime().equals(roomMovieRespItem.getStartTime()))
-
-                    roomMovieResp.setPrice(item.getPrice().getPrice());
-                    roomMovieResp.setPriceType(item.getPrice().getPriceType());
-                    roomMovieResp.setStartTime(item.getRoomMovie().getSchedule().getStartTime());
-//                    roomMovieResps.add(roomMovieResp);
-
-            }
             roomMovieResps.add(roomMovieResp);
-
         }
+
+
 
 
         List<RoomMovieDto> roomMovieDtos = roomMovieService.getRoomMovieByMovieAndDate(movieId, date);
 
         List<RoomResponse> roomResponses = new ArrayList<>();
 
-
         for (RoomMovieDto item : roomMovieDtos) {
 
             RoomResponse roomResponse = new RoomResponse();
             roomResponse.setRoomId(item.getRoom().getId());
             roomResponse.setName(item.getRoom().getName());
-            roomResponse.setSeances(roomMovieResps);
+
+
+
+
+            List<RoomMovieResp>newList=new ArrayList<>();
+            //TODO check seance
+            for(RoomMoviePriceDto item1:roomMoviePriceDtos) {
+                RoomMovieResp roomMovieResp = new RoomMovieResp();
+                if (item.getSchedule().getId().equals(item1.getRoomMovie().getSchedule().getId())) {
+                    if (item1.getRoomMovie().getId().equals(item.getId())) {
+                        roomMovieResp.setId(item1.getRoomMovie().getSchedule().getId());
+                        roomMovieResp.setPrice(item1.getPrice().getPrice());
+                        roomMovieResp.setStartTime(item1.getRoomMovie().getSchedule().getStartTime());
+                        roomMovieResp.setPriceType(item1.getPrice().getPriceType());
+                        newList.add(roomMovieResp);
+                    }
+                }
+            }
+
+            roomResponse.setSeances(newList);
             roomResponses.add(roomResponse);
         }
 
@@ -128,7 +140,6 @@ public class RoomMoviePriceServiceImpl implements RoomMoviePriceService {
             List<RoomResponse> newRoomResp = new ArrayList();
             for (RoomResponse roomResponseItem : roomResponses) {
 
-//                if (item.getRoom().getName().equals(roomResponseItem.getName())) {
                 if (item.getRoom().getId().equals(roomResponseItem.getRoomId())) {
                     newRoomResp.add(roomResponseItem);
                 }
