@@ -49,11 +49,24 @@ public class OrderDetailController {
         return new ResponseEntity<>(service.findById(id), HttpStatus.FOUND);
 
     }
+
+
+    @GetMapping("/booking")
+    @ApiOperation("booking")
+    ResponseEntity<?> booking(@RequestParam Long id) {
+
+        return new ResponseEntity<>(service.booking(id), HttpStatus.FOUND);
+
+    }
+
+
     @GetMapping("/findAll")
     @ApiOperation("Вывод всех деталей брони")
     ResponseEntity<List<OrderDetailDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
+
+
 
     @DeleteMapping("/delete")
     @ApiOperation("Удаление")

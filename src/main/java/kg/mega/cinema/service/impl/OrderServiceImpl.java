@@ -3,6 +3,7 @@ package kg.mega.cinema.service.impl;
 import kg.mega.cinema.dao.OrderRep;
 import kg.mega.cinema.mappers.OrderMapper;
 import kg.mega.cinema.models.dto.OrderDto;
+import kg.mega.cinema.models.responses.OrderResponse;
 import kg.mega.cinema.service.OrderService;
 import org.springframework.stereotype.Service;
 
@@ -48,4 +49,5 @@ public class OrderServiceImpl implements OrderService {
 
         return save(orderDto);
     }
+
 }

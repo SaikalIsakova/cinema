@@ -80,31 +80,39 @@ public class SeatScheduleServiceImpl implements SeatScheduleService {
 
     @Override
     public List<SeatScheduleResponse> getByRoomMovieId(Long roomMovieId) {
-        //тут мы находим какие места куплены = их у меня 2
+
         List<SeatScheduleDto> seatScheduleList = findByRoomMovieId(roomMovieId);
-        //тут мы находим зал по сеансу
+
         RoomDto roomDto = roomService.findByRoomMovieId(roomMovieId);
-        //тут находим места по залу = их у меня 20
+
         List<SeatDto> seatList = seatService.findByRoomId(roomDto.getId());
-        //это лист который надо вывести.
+
         List<SeatScheduleResponse> seatScheduleResList = new ArrayList<>();
 
 
-        for (SeatDto seatItem:seatList){ //20 мест
+        for (SeatDto seatItem:seatList){
             SeatScheduleResponse response=new SeatScheduleResponse();
 
-            for(SeatScheduleDto seatScheduleItem:seatScheduleList){//2 места (1-2-айди)
-                SeatScheduleDto seatScheduleDto= seatScheduleItem;//тут в объект передаю значения этого листа,что бы можно было сравнить
+            if (seatScheduleList.isEmpty()) {
+                response.setId(seatItem.getId());
+                response.setRow(seatItem.getRow());
+                response.setSeatNum(seatItem.getNumber());
+                response.setStatus(SeatStatus.FREE);
+            }
 
-                if(seatItem.getId().equals(seatScheduleDto.getSeat().getId())){//если == то вытягиваем данные из этого объекта
+            for(SeatScheduleDto seatScheduleItem:seatScheduleList){
+                SeatScheduleDto seatScheduleDto= seatScheduleItem;
+
+                if(seatItem.getId().equals(seatScheduleDto.getSeat().getId())){
                     response.setId(seatScheduleDto.getSeat().getId());
                     response.setRow(seatScheduleDto.getSeat().getRow());
                     response.setSeatNum(seatScheduleDto.getSeat().getNumber());
                     response.setStatus(seatScheduleDto.getSeatStatus());
                     break;
 
-                }else{
-                    response.setId(seatItem.getId());//если не совпадает вытягиваем данные seat
+                }
+                else{
+                    response.setId(seatItem.getId());
                     response.setRow(seatItem.getRow());
                     response.setSeatNum(seatItem.getNumber());
                     response.setStatus(SeatStatus.FREE);
