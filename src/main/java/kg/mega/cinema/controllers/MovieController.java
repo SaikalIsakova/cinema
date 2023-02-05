@@ -3,7 +3,7 @@ package kg.mega.cinema.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import kg.mega.cinema.models.dto.MovieDto;
-import kg.mega.cinema.models.requests.SaveMovieRequest;
+import kg.mega.cinema.models.requests.MovieRequest;
 import kg.mega.cinema.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class MovieController {
 
     @PostMapping("/create")
     @ApiOperation("Создание")
-    ResponseEntity<?> create(@ModelAttribute SaveMovieRequest movie) {
+    ResponseEntity<?> create(@ModelAttribute MovieRequest movie) {
         try {
             return new ResponseEntity<>(service.create(movie), HttpStatus.CREATED);
         } catch (Exception e) {

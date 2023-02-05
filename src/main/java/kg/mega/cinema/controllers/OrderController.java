@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = "Order")
+@Api(tags = "Заявка")
 @RestController
 @RequestMapping("/api/v1/order")
 public class OrderController {
@@ -24,6 +24,18 @@ public class OrderController {
     ResponseEntity<?> save(@RequestBody OrderDto orderDto) {
         try {
             return new ResponseEntity<>(service.save(orderDto), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
+    }
+
+
+
+    @PostMapping("/create")
+    @ApiOperation("create")
+    ResponseEntity<?> create() {
+        try {
+            return new ResponseEntity<>(service.create(), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }

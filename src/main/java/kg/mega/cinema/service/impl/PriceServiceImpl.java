@@ -3,7 +3,7 @@ package kg.mega.cinema.service.impl;
 import kg.mega.cinema.dao.PriceRep;
 import kg.mega.cinema.mappers.PriceMapper;
 import kg.mega.cinema.models.dto.PriceDto;
-import kg.mega.cinema.models.requests.SavePriceRequest;
+import kg.mega.cinema.models.requests.PriceRequest;
 import kg.mega.cinema.service.PriceService;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public PriceDto create(SavePriceRequest price) {
+    public PriceDto create(PriceRequest price) {
         PriceDto priceDto = new PriceDto();
         priceDto.setPrice(price.getPrice());
         priceDto.setPriceType(price.getPriceType());

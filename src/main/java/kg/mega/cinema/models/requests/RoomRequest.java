@@ -8,9 +8,8 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class SaveSeatRequest {
-    Long roomId;
-    int number;
-    int row;
-
+public class RoomRequest {
+    Long cinemaId;
+    int seatCount;
+    String name;
 }

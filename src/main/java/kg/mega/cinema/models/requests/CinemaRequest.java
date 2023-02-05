@@ -8,7 +8,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class SaveCinemaRequest {
+public class CinemaRequest {
 
     String name;
     String address;

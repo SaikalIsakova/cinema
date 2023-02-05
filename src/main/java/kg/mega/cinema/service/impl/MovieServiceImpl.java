@@ -3,7 +3,7 @@ package kg.mega.cinema.service.impl;
 import kg.mega.cinema.dao.MovieRep;
 import kg.mega.cinema.mappers.MovieMapper;
 import kg.mega.cinema.models.dto.MovieDto;
-import kg.mega.cinema.models.requests.SaveMovieRequest;
+import kg.mega.cinema.models.requests.MovieRequest;
 import kg.mega.cinema.service.MovieService;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieDto create(SaveMovieRequest movie) {
+    public MovieDto create(MovieRequest movie) {
         MovieDto movieDto = new MovieDto();
         movieDto.setName(movie.getName());
         movieDto.setDefinition(movie.getDefinition());

@@ -39,4 +39,13 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDto> findAll() {
         return mapper.toDtos(rep.findAll());
     }
+
+    @Override
+    public OrderDto create() {
+
+        OrderDto orderDto=new OrderDto();
+        orderDto.setPrice(0);
+
+        return save(orderDto);
+    }
 }

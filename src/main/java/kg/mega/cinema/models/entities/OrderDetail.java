@@ -19,7 +19,7 @@ public class OrderDetail{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @ManyToOne
-    SeatSchedule schedule;
+    SeatSchedule seatSchedule;
     @ManyToOne
     Order order;
     boolean active;

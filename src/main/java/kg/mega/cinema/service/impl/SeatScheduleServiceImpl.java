@@ -2,22 +2,15 @@ package kg.mega.cinema.service.impl;
 
 import kg.mega.cinema.dao.SeatScheduleRep;
 import kg.mega.cinema.mappers.SeatScheduleMapper;
-import kg.mega.cinema.models.dto.RoomDto;
-import kg.mega.cinema.models.dto.RoomMovieDto;
-import kg.mega.cinema.models.dto.SeatDto;
-import kg.mega.cinema.models.dto.SeatScheduleDto;
+import kg.mega.cinema.models.dto.*;
 import kg.mega.cinema.models.enums.SeatStatus;
 import kg.mega.cinema.models.responses.Response;
 import kg.mega.cinema.models.responses.SeatScheduleResponse;
-import kg.mega.cinema.service.RoomMovieService;
-import kg.mega.cinema.service.RoomService;
-import kg.mega.cinema.service.SeatScheduleService;
-import kg.mega.cinema.service.SeatService;
+import kg.mega.cinema.service.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class SeatScheduleServiceImpl implements SeatScheduleService {
@@ -25,14 +18,14 @@ public class SeatScheduleServiceImpl implements SeatScheduleService {
 
     private final SeatScheduleRep rep;
     private final SeatService seatService;
-    private final RoomMovieService roomMovieService;
+    private final RoomMoviePriceService roomMoviePriceService;
     private final RoomService roomService;
 
     public SeatScheduleServiceImpl(SeatScheduleRep rep, SeatService seatService,
-                                   RoomMovieService roomMovieService, RoomService roomService) {
+                                   RoomMoviePriceService roomMoviePriceService, RoomService roomService) {
         this.rep = rep;
         this.seatService = seatService;
-        this.roomMovieService = roomMovieService;
+        this.roomMoviePriceService = roomMoviePriceService;
         this.roomService = roomService;
 
     }
@@ -62,14 +55,14 @@ public class SeatScheduleServiceImpl implements SeatScheduleService {
 
     @Override
     public Response create(Long seanceId, List<Long> seatId) {
-        RoomMovieDto roomMovieDto = roomMovieService.findById(seanceId);
+        RoomMoviePriceDto roomMoviePriceDto = roomMoviePriceService.findById(seanceId);
 
         for (Long id : seatId) {
 
             SeatDto seatDto = seatService.findById(id);
 
             SeatScheduleDto seatScheduleDto = new SeatScheduleDto();
-            seatScheduleDto.setRoomMovie(roomMovieDto);
+            seatScheduleDto.setRoomMoviePrice(roomMoviePriceDto);
             seatScheduleDto.setSeat(seatDto);
             seatScheduleDto.setSeatStatus(SeatStatus.SOLD);
 
@@ -87,7 +80,7 @@ public class SeatScheduleServiceImpl implements SeatScheduleService {
 
     @Override
     public List<SeatScheduleResponse> getByRoomMovieId(Long roomMovieId) {
-        //тут мы находим какие места куплены = их у меня 3
+        //тут мы находим какие места куплены = их у меня 2
         List<SeatScheduleDto> seatScheduleList = findByRoomMovieId(roomMovieId);
         //тут мы находим зал по сеансу
         RoomDto roomDto = roomService.findByRoomMovieId(roomMovieId);
@@ -96,37 +89,33 @@ public class SeatScheduleServiceImpl implements SeatScheduleService {
         //это лист который надо вывести.
         List<SeatScheduleResponse> seatScheduleResList = new ArrayList<>();
 
-        SeatScheduleResponse seatScheduleResponse = new SeatScheduleResponse();
 
-        for (SeatScheduleDto item : seatScheduleList) { // размер 3
-            for (SeatDto item2 : seatList) { //размер 20
+        for (SeatDto seatItem:seatList){ //20 мест
+            SeatScheduleResponse response=new SeatScheduleResponse();
 
-                if (item2.getId().equals(item.getSeat().getId())) {
-                    for (SeatScheduleResponse newItem : seatScheduleResList) {
-//                        if (newItem.getSeatScheduleId())
-                        //если купленные места и айди мест совпадает то должны сохр как уже купленные
-                        seatScheduleResponse.setStatus(item.getSeatStatus());//тут статус солд
-                        seatScheduleResponse.setSeatScheduleId(item.getId());
-                        seatScheduleResponse.setSeatNum(item.getSeat().getNumber());
-                        seatScheduleResponse.setRow(item.getSeat().getRow());
-                        seatScheduleResList.add(seatScheduleResponse);
-                    }
+            for(SeatScheduleDto seatScheduleItem:seatScheduleList){//2 места (1-2-айди)
+                SeatScheduleDto seatScheduleDto= seatScheduleItem;//тут в объект передаю значения этого листа,что бы можно было сравнить
+
+                if(seatItem.getId().equals(seatScheduleDto.getSeat().getId())){//если == то вытягиваем данные из этого объекта
+                    response.setId(seatScheduleDto.getSeat().getId());
+                    response.setRow(seatScheduleDto.getSeat().getRow());
+                    response.setSeatNum(seatScheduleDto.getSeat().getNumber());
+                    response.setStatus(seatScheduleDto.getSeatStatus());
+                    break;
+
+                }else{
+                    response.setId(seatItem.getId());//если не совпадает вытягиваем данные seat
+                    response.setRow(seatItem.getRow());
+                    response.setSeatNum(seatItem.getNumber());
+                    response.setStatus(SeatStatus.FREE);
                 }
-                else{
-                        //если айдишки не совпадают то free
-                        seatScheduleResponse.setSeatScheduleId(item2.getId());
-                        seatScheduleResponse.setSeatNum(item2.getNumber());
-                        seatScheduleResponse.setRow(item2.getRow());
-                        seatScheduleResponse.setStatus(SeatStatus.FREE);
-                        seatScheduleResList.add(seatScheduleResponse);
-                    }
-
-                }
-
             }
-            return seatScheduleResList;
+            seatScheduleResList.add(response);
         }
-
+        return seatScheduleResList;
     }
+
+
+}
 
 

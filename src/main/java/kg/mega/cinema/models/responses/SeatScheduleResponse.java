@@ -12,19 +12,10 @@ import lombok.experimental.FieldDefaults;
 public class SeatScheduleResponse {
 
 
-        Long seatScheduleId;
+        Long id;
         SeatStatus status;
         int row;
         int seatNum;
 
 
-        @Override
-        public String toString() {
-                return "SeatScheduleResponse{" +
-                        "seatScheduleId=" + seatScheduleId +
-                        ", status=" + status +
-                        ", row=" + row +
-                        ", seatNum=" + seatNum +
-                        '}';
-        }
 }

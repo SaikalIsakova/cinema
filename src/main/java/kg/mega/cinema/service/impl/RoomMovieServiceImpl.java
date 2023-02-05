@@ -6,7 +6,7 @@ import kg.mega.cinema.models.dto.MovieDto;
 import kg.mega.cinema.models.dto.RoomDto;
 import kg.mega.cinema.models.dto.RoomMovieDto;
 import kg.mega.cinema.models.dto.ScheduleDto;
-import kg.mega.cinema.models.requests.SaveRoomMovieRequest;
+import kg.mega.cinema.models.requests.RoomMovieRequest;
 import kg.mega.cinema.service.MovieService;
 import kg.mega.cinema.service.RoomMovieService;
 import kg.mega.cinema.service.RoomService;
@@ -70,7 +70,7 @@ public class RoomMovieServiceImpl implements RoomMovieService {
 
 
     @Override
-    public RoomMovieDto create(SaveRoomMovieRequest request) {
+    public RoomMovieDto create(RoomMovieRequest request) {
         RoomDto roomDto=roomService.findById(request.getRoomId());
         MovieDto movieDto=movieService.findById(request.getMovieId());
         ScheduleDto scheduleDto=scheduleService.findById(request.getScheduleId());

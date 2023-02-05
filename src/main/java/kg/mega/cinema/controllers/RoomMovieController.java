@@ -3,7 +3,7 @@ package kg.mega.cinema.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import kg.mega.cinema.models.dto.RoomMovieDto;
-import kg.mega.cinema.models.requests.SaveRoomMovieRequest;
+import kg.mega.cinema.models.requests.RoomMovieRequest;
 import kg.mega.cinema.service.RoomMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,7 +24,7 @@ public class RoomMovieController {
 
     @PostMapping("/create")
     @ApiOperation("create")
-    ResponseEntity<?> create(@ModelAttribute SaveRoomMovieRequest request) {
+    ResponseEntity<?> create(@ModelAttribute RoomMovieRequest request) {
         try {
             return new ResponseEntity<>(service.create(request), HttpStatus.CREATED);
         } catch (Exception e) {

@@ -3,7 +3,7 @@ package kg.mega.cinema.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import kg.mega.cinema.models.dto.RoomDto;
-import kg.mega.cinema.models.requests.SaveRoomRequest;
+import kg.mega.cinema.models.requests.RoomRequest;
 import kg.mega.cinema.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class RoomController {
 
     @PostMapping("/create")
     @ApiOperation("Создать")
-    ResponseEntity<?>create(@ModelAttribute SaveRoomRequest room){
+    ResponseEntity<?>create(@ModelAttribute RoomRequest room){
         try {
             return new ResponseEntity<>(service.create(room), HttpStatus.CREATED);
         } catch (Exception e) {

@@ -1,10 +1,9 @@
 package kg.mega.cinema.service.impl;
 
-import com.fasterxml.jackson.core.JsonParser;
 import kg.mega.cinema.dao.CinemaRep;
 import kg.mega.cinema.mappers.CinemaMapper;
 import kg.mega.cinema.models.dto.CinemaDto;
-import kg.mega.cinema.models.requests.SaveCinemaRequest;
+import kg.mega.cinema.models.requests.CinemaRequest;
 import kg.mega.cinema.service.CinemaService;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -45,7 +44,7 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
     @Override
-    public CinemaDto create(SaveCinemaRequest cinema) {
+    public CinemaDto create(CinemaRequest cinema) {
         CinemaDto cinemaDto = new CinemaDto();
         cinemaDto.setName(cinema.getName());
         cinemaDto.setAddress(cinema.getAddress());

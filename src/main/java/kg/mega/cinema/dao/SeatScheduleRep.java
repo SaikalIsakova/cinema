@@ -10,11 +10,12 @@ import java.util.List;
 @Repository
 
 public interface SeatScheduleRep extends JpaRepository<SeatSchedule,Long> {
-    @Query("select ss from SeatSchedule as ss\n" +
-            "            INNER JOIN RoomMovie as rm\n" +
-            "            on ss.roomMovie.id=rm.id\n" +
-            "            INNER JOIN Seat as s\n" +
-            "            on ss.seat.id=s.id\n" +
-            "            WHERE rm.id=:roomMovieId")
+    @Query("select ss from SeatSchedule ss " +
+            "inner join RoomMoviePrice rmp " +
+            "on ss.roomMoviePrice.id=rmp.id " +
+            "inner join RoomMovie rm " +
+            "on rmp.roomMovie.id=rm.id " +
+            "where rm.id=:roomMovieId" )
     List<SeatSchedule> findByRoomMovieId(Long roomMovieId);
+
 }

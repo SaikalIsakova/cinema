@@ -4,7 +4,7 @@ import kg.mega.cinema.dao.RoomRep;
 import kg.mega.cinema.mappers.RoomMapper;
 import kg.mega.cinema.models.dto.CinemaDto;
 import kg.mega.cinema.models.dto.RoomDto;
-import kg.mega.cinema.models.requests.SaveRoomRequest;
+import kg.mega.cinema.models.requests.RoomRequest;
 import kg.mega.cinema.service.CinemaService;
 import kg.mega.cinema.service.RoomService;
 import org.springframework.stereotype.Service;
@@ -45,7 +45,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public RoomDto create(SaveRoomRequest room) {
+    public RoomDto create(RoomRequest room) {
         CinemaDto cinema = cinemaService.findById(room.getCinemaId());
         RoomDto roomDto = new RoomDto();
         roomDto.setName(room.getName());

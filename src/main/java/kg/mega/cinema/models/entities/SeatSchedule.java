@@ -21,7 +21,7 @@ public class SeatSchedule{
     @ManyToOne
     Seat seat;
     @ManyToOne
-    RoomMovie roomMovie;
+    RoomMoviePrice roomMoviePrice;
     @Enumerated(EnumType.STRING)
     SeatStatus seatStatus;
     boolean active;

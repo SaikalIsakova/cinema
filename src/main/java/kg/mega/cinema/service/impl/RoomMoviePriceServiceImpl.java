@@ -5,6 +5,7 @@ import kg.mega.cinema.mappers.RoomMoviePriceMapper;
 import kg.mega.cinema.models.dto.PriceDto;
 import kg.mega.cinema.models.dto.RoomMovieDto;
 import kg.mega.cinema.models.dto.RoomMoviePriceDto;
+import kg.mega.cinema.models.requests.RoomMoviePriceRequest;
 import kg.mega.cinema.models.responses.CinemaResponse;
 import kg.mega.cinema.models.responses.JsonResponse;
 import kg.mega.cinema.models.responses.RoomMovieResp;
@@ -61,7 +62,7 @@ public class RoomMoviePriceServiceImpl implements RoomMoviePriceService {
     }
 
     @Override
-    public RoomMoviePriceDto create(kg.mega.cinema.models.request.RoomMoviePriceRequest roomMoviePriceRequest) {
+    public RoomMoviePriceDto create(RoomMoviePriceRequest roomMoviePriceRequest) {
         PriceDto priceDto=priceService.findById(roomMoviePriceRequest.getPriceId());
         RoomMovieDto roomMovieDto=roomMovieService.findById(roomMoviePriceRequest.getRoomMovieId());
 
@@ -83,18 +84,18 @@ public class RoomMoviePriceServiceImpl implements RoomMoviePriceService {
 
         List<RoomMoviePriceDto> roomMoviePriceDtos = getPriceByMovieIdAndDate(movieId, date);
 
-
-        List<RoomMovieResp> roomMovieResps = new ArrayList<>();
-
-        for (RoomMoviePriceDto item : roomMoviePriceDtos) { //5
-            RoomMovieResp roomMovieResp = new RoomMovieResp();
-            roomMovieResp.setId(item.getRoomMovie().getId());
-            roomMovieResp.setPrice(item.getPrice().getPrice());
-            roomMovieResp.setPriceType(item.getPrice().getPriceType());
-            roomMovieResp.setStartTime(item.getRoomMovie().getSchedule().getStartTime());
-
-            roomMovieResps.add(roomMovieResp);
-        }
+//
+//        List<RoomMovieResp> roomMovieResps = new ArrayList<>();
+//
+//        for (RoomMoviePriceDto item : roomMoviePriceDtos) { //5
+//            RoomMovieResp roomMovieResp = new RoomMovieResp();
+//            roomMovieResp.setId(item.getRoomMovie().getId());
+//            roomMovieResp.setPrice(item.getPrice().getPrice());
+//            roomMovieResp.setPriceType(item.getPrice().getPriceType());
+//            roomMovieResp.setStartTime(item.getRoomMovie().getSchedule().getStartTime());
+//
+//            roomMovieResps.add(roomMovieResp);
+//        }
 
 
 
@@ -108,9 +109,6 @@ public class RoomMoviePriceServiceImpl implements RoomMoviePriceService {
             RoomResponse roomResponse = new RoomResponse();
             roomResponse.setRoomId(item.getRoom().getId());
             roomResponse.setName(item.getRoom().getName());
-
-
-
 
             List<RoomMovieResp>newList=new ArrayList<>();
             //TODO check seance
@@ -159,6 +157,11 @@ public class RoomMoviePriceServiceImpl implements RoomMoviePriceService {
             jsonResponse.setRating(item.getRoomMovie().getMovie().getRating());
         }
         return jsonResponse;
+    }
+
+    @Override
+    public RoomMoviePriceDto getPriceBySeatSchedule(Long seatScheduleId) {
+        return mapper.toDto(rep.getPriceBySeatSchedule(seatScheduleId));
     }
 
 }

@@ -3,7 +3,7 @@ package kg.mega.cinema.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import kg.mega.cinema.models.dto.SeatDto;
-import kg.mega.cinema.models.requests.SaveSeatRequest;
+import kg.mega.cinema.models.requests.SeatRequest;
 import kg.mega.cinema.service.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Api(tags = "Место")
 @RestController
@@ -23,7 +22,7 @@ public class SeatController {
 
     @PostMapping("/create")
     @ApiOperation("create")
-    ResponseEntity<?> create(@ModelAttribute SaveSeatRequest request) {
+    ResponseEntity<?> create(@ModelAttribute SeatRequest request) {
         try {
             return new ResponseEntity<>(service.create(request), HttpStatus.CREATED);
         } catch (Exception e) {

@@ -14,7 +14,7 @@ import java.util.Date;
 public class OrderDetailDto {
 
     Long id;
-    SeatScheduleDto schedule;
+    SeatScheduleDto seatSchedule;
     OrderDto order;
     boolean active;
     Date addDate;

@@ -68,6 +68,13 @@ public class SeatScheduleController {
     }
 
 
+    @GetMapping("/finddByRoomMovieId")
+    @ApiOperation("find")
+    ResponseEntity<List<SeatScheduleDto>> find(@RequestParam Long roomMovieId) {
+        return  ResponseEntity.ok(service.findByRoomMovieId(roomMovieId));
+    }
+
+
     @DeleteMapping("/delete")
     @ApiOperation("Удаление")
     ResponseEntity<?> delete(@RequestParam Long id) {

@@ -12,4 +12,5 @@ public interface SeatScheduleService extends BaseService<SeatScheduleDto>{
     List<SeatScheduleDto>findByRoomMovieId(Long roomMovieId);
     List<SeatScheduleResponse> getByRoomMovieId(Long roomMovieId);
 
+
 }

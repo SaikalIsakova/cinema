@@ -4,7 +4,7 @@ package kg.mega.cinema.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import kg.mega.cinema.models.dto.CinemaDto;
-import kg.mega.cinema.models.requests.SaveCinemaRequest;
+import kg.mega.cinema.models.requests.CinemaRequest;
 import kg.mega.cinema.service.CinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +33,7 @@ public class CinemaController {
 
     @PostMapping("/create")
     @ApiOperation("Создание")
-    ResponseEntity<?> create(@ModelAttribute SaveCinemaRequest cinema) {
+    ResponseEntity<?> create(@ModelAttribute CinemaRequest cinema) {
         try {
             return new ResponseEntity<>(service.create(cinema), HttpStatus.CREATED);
         } catch (Exception e) {

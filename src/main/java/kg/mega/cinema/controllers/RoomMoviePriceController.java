@@ -3,6 +3,7 @@ package kg.mega.cinema.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import kg.mega.cinema.models.dto.RoomMoviePriceDto;
+import kg.mega.cinema.models.requests.RoomMoviePriceRequest;
 import kg.mega.cinema.service.RoomMoviePriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,7 +24,7 @@ public class RoomMoviePriceController {
 
     @PostMapping("/save")
     @ApiOperation("Сохранение")
-    ResponseEntity<?> save(@RequestBody kg.mega.cinema.models.request.RoomMoviePriceRequest roomMoviePriceRequest) {
+    ResponseEntity<?> save(@ModelAttribute RoomMoviePriceRequest roomMoviePriceRequest) {
         try {
             return new ResponseEntity<>(service.create(roomMoviePriceRequest), HttpStatus.CREATED);
         } catch (Exception e) {
@@ -39,6 +40,16 @@ public class RoomMoviePriceController {
         return new ResponseEntity<>(service.findById(id), HttpStatus.FOUND);
 
     }
+
+
+    @GetMapping("/findBySched")
+    @ApiOperation("Поиск по id")
+    ResponseEntity<?> getPriceBySeatSched(@RequestParam Long id) {
+
+        return new ResponseEntity<>(service.getPriceBySeatSchedule(id), HttpStatus.FOUND);
+
+    }
+
 
 
     @GetMapping("/get")

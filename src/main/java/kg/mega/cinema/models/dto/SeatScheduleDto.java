@@ -14,7 +14,7 @@ import java.util.Date;
 public class SeatScheduleDto{
     Long id;
     SeatDto seat;
-    RoomMovieDto roomMovie;
+    RoomMoviePriceDto roomMoviePrice;
     SeatStatus seatStatus;
     boolean active;
     Date addDate;

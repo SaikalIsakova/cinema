@@ -3,7 +3,7 @@ package kg.mega.cinema.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import kg.mega.cinema.models.dto.PriceDto;
-import kg.mega.cinema.models.requests.SavePriceRequest;
+import kg.mega.cinema.models.requests.PriceRequest;
 import kg.mega.cinema.service.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class PriceController {
 
     @PostMapping("/create")
     @ApiOperation("Создание")
-    ResponseEntity<?> create(@ModelAttribute SavePriceRequest price) {
+    ResponseEntity<?> create(@ModelAttribute PriceRequest price) {
         try {
             return new ResponseEntity<>(service.create(price), HttpStatus.CREATED);
         } catch (Exception e) {

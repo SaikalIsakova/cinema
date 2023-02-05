@@ -8,8 +8,11 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RoomMoviePriceRequest {
-    Long priceId;
-    Long roomMovieId;
+public class MovieRequest {
 
+    String definition;
+    String name;
+    Double rating;
+    String pg;
+    String image;
 }

@@ -18,4 +18,8 @@ public interface RoomMoviePriceRep extends JpaRepository<RoomMoviePrice, Long> {
             "where s.dateOfFilms=:date and rm.movie.id=:movieId")
     List<RoomMoviePrice> getPriceByMovieIdAndDate(Long movieId, LocalDate date);
 
+    @Query("select rmp from RoomMoviePrice rmp inner join SeatSchedule ss on rmp.id=ss.roomMoviePrice.id where ss.id=:seatScheduleId")
+    RoomMoviePrice getPriceBySeatSchedule(Long seatScheduleId);
+
+
 }

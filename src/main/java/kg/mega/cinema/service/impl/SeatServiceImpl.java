@@ -4,15 +4,13 @@ import kg.mega.cinema.dao.SeatRep;
 import kg.mega.cinema.mappers.SeatMapper;
 import kg.mega.cinema.models.dto.RoomDto;
 import kg.mega.cinema.models.dto.SeatDto;
-import kg.mega.cinema.models.requests.SaveSeatRequest;
+import kg.mega.cinema.models.requests.SeatRequest;
 import kg.mega.cinema.service.RoomMovieService;
 import kg.mega.cinema.service.RoomService;
 import kg.mega.cinema.service.SeatService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class SeatServiceImpl implements SeatService {
@@ -51,7 +49,7 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public SeatDto create(SaveSeatRequest request) {
+    public SeatDto create(SeatRequest request) {
 
         RoomDto roomDto=roomService.findById(request.getRoomId());
         SeatDto seatDto=new SeatDto();
