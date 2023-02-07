@@ -22,16 +22,6 @@ public class PriceController {
 
     @PostMapping("/save")
     @ApiOperation("Сохранение")
-    ResponseEntity<?> save(@RequestBody PriceDto priceDto) {
-        try {
-            return new ResponseEntity<>(service.save(priceDto), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }
-    }
-
-    @PostMapping("/create")
-    @ApiOperation("Создание")
     ResponseEntity<?> create(@ModelAttribute PriceRequest price) {
         try {
             return new ResponseEntity<>(service.create(price), HttpStatus.CREATED);
@@ -40,18 +30,30 @@ public class PriceController {
         }
     }
 
-    @GetMapping("/findById")
+
+    @GetMapping("/find/by/id")
     @ApiOperation("Поиск цены по id")
     ResponseEntity<?> findById(@RequestParam Long id) {
 
         return new ResponseEntity<>(service.findById(id), HttpStatus.FOUND);
 
     }
-    @GetMapping("/findAll")
-    @ApiOperation("Вывод всех цен")
-    ResponseEntity<List<PriceDto>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+
+//
+//    @GetMapping("/find/all")
+//    @ApiOperation("Вывод всех цен")
+//    ResponseEntity<?> findAll() {
+//        return ResponseEntity.ok(service.findAll());
+//    }
+
+
+    @GetMapping("/get/all/prices")
+    @ApiOperation("вывод всех мест")
+    ResponseEntity<?> getAllPrices() {
+        return ResponseEntity.ok(service.getAllPrices());
     }
+
+
 
     @DeleteMapping("/delete")
     @ApiOperation("Удаление")

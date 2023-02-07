@@ -22,16 +22,6 @@ public class RoomController {
 
     @PostMapping("/save")
     @ApiOperation("Сохранение")
-    ResponseEntity<?> save(@RequestBody RoomDto roomDto) {
-        try {
-            return new ResponseEntity<>(service.save(roomDto), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }
-    }
-
-    @PostMapping("/create")
-    @ApiOperation("Создать")
     ResponseEntity<?>create(@ModelAttribute RoomRequest room){
         try {
             return new ResponseEntity<>(service.create(room), HttpStatus.CREATED);
@@ -40,18 +30,22 @@ public class RoomController {
         }
     }
 
-    @GetMapping("/findById")
+    @GetMapping("/find/by/Id")
     @ApiOperation("Поиск зала по id")
     ResponseEntity<?> findById(@RequestParam Long id) {
 
         return new ResponseEntity<>(service.findById(id), HttpStatus.FOUND);
 
     }
-    @GetMapping("/findAll")
+
+
+    @GetMapping("/find/all")
     @ApiOperation("Вывод всех залов")
     ResponseEntity<List<RoomDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
+
+
 
     @DeleteMapping("/delete")
     @ApiOperation("Удаление")

@@ -22,17 +22,8 @@ public class ScheduleController {
     @Autowired
     private ScheduleService service;
 
-    @PostMapping("/save")
-    @ApiOperation("Сохранение")
-    ResponseEntity<?> save(@RequestBody ScheduleDto scheduleDto) {
-        try {
-            return new ResponseEntity<>(service.save(scheduleDto), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }
-    }
 
-    @PostMapping("/create")
+    @PostMapping("/save")
     @ApiOperation("Создание")
     ResponseEntity<?> create( @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date,
                               @RequestParam @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time) {
@@ -41,14 +32,15 @@ public class ScheduleController {
 
     }
 
-    @GetMapping("/findById")
+    @GetMapping("/find/by/id")
     @ApiOperation("Поиск расписания по id")
     ResponseEntity<?> findById(@RequestParam Long id) {
 
         return new ResponseEntity<>(service.findById(id), HttpStatus.FOUND);
 
     }
-    @GetMapping("/findAll")
+
+    @GetMapping("/find/all")
     @ApiOperation("Вывод всех расписаний")
     ResponseEntity<List<ScheduleDto>> findAll() {
         return ResponseEntity.ok(service.findAll());

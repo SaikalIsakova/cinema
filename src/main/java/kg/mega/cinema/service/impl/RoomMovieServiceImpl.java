@@ -18,6 +18,7 @@ import java.util.List;
 
 @Service
 public class RoomMovieServiceImpl implements RoomMovieService {
+
     RoomMovieMapper mapper = RoomMovieMapper.INSTANCE;
 
     private final RoomMovieRep rep;
@@ -30,28 +31,32 @@ public class RoomMovieServiceImpl implements RoomMovieService {
         this.roomService = roomService;
         this.movieService = movieService;
         this.scheduleService = scheduleService;
-//        this.roomMoviePriceService = roomMoviePriceService;
     }
 
     @Override
     public RoomMovieDto save(RoomMovieDto roomMovieDto) {
+
         return mapper.toDto(rep.save(mapper.toEntity(roomMovieDto)));
     }
 
     @Override
     public RoomMovieDto findById(Long id) {
+
         return mapper.toDto(rep.findById(id).orElseThrow(()->new RuntimeException("RoomMovie not found!")));
     }
 
     @Override
     public RoomMovieDto delete(Long id) {
+
         RoomMovieDto roomMovieDto = findById(id);
         roomMovieDto.setActive(false);
+
         return save(roomMovieDto);
     }
 
     @Override
     public List<RoomMovieDto> findAll() {
+
         return mapper.toDtos(rep.findAll());
     }
 
@@ -65,12 +70,14 @@ public class RoomMovieServiceImpl implements RoomMovieService {
 
     @Override
     public List<RoomMovieDto> getRoomMovieByMovieAndDate(Long movieId, LocalDate date) {
+
         return mapper.toDtos(rep.getRoomMovie(movieId,date));
     }
 
 
     @Override
     public RoomMovieDto create(RoomMovieRequest request) {
+
         RoomDto roomDto=roomService.findById(request.getRoomId());
         MovieDto movieDto=movieService.findById(request.getMovieId());
         ScheduleDto scheduleDto=scheduleService.findById(request.getScheduleId());

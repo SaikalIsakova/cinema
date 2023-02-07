@@ -22,8 +22,8 @@ public class RoomMovieController {
     @Autowired
     private RoomMovieService service;
 
-    @PostMapping("/create")
-    @ApiOperation("create")
+    @PostMapping("/save")
+    @ApiOperation("Сохранение")
     ResponseEntity<?> create(@ModelAttribute RoomMovieRequest request) {
         try {
             return new ResponseEntity<>(service.create(request), HttpStatus.CREATED);
@@ -31,6 +31,7 @@ public class RoomMovieController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
     }
+
 
     @GetMapping("/find/by/id")
     @ApiOperation("Поиск по id")
@@ -40,24 +41,6 @@ public class RoomMovieController {
 
     }
 
-
-
-    @GetMapping("/find/by/movie/date")
-    @ApiOperation("Поиск сеанса по id фильма и дате")
-    ResponseEntity<?> findByDate(@RequestParam Long movieId, @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
-
-        return new ResponseEntity<>(service.getRoomMovieByMovieAndDate(movieId,date), HttpStatus.FOUND);
-
-    }
-
-
-    @GetMapping("/find/by/room-id")
-    @ApiOperation("Поиск сеанса по id зала")
-    ResponseEntity<?> findByRoomId(@RequestParam Long roomId) {
-
-        return new ResponseEntity<>(service.findByRoomId(roomId), HttpStatus.FOUND);
-
-    }
 
     @GetMapping("/findAll")
     @ApiOperation("Вывод всех")

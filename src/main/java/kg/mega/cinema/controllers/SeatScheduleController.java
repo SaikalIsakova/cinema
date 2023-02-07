@@ -3,6 +3,7 @@ package kg.mega.cinema.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import kg.mega.cinema.models.dto.SeatScheduleDto;
+import kg.mega.cinema.models.enums.PriceType;
 import kg.mega.cinema.models.responses.SeatScheduleResponse;
 import kg.mega.cinema.service.SeatScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Api(tags = "Билет")
 @RestController
@@ -34,7 +36,7 @@ public class SeatScheduleController {
 
     @PostMapping("/create")
     @ApiOperation("Сохранение билета")
-    ResponseEntity<?> create(@RequestParam Long seanceId,@RequestParam List<Long> seatId) {
+    ResponseEntity<?> create(@RequestParam Long seanceId,@RequestBody Map<Long, PriceType> seatId) {
         try {
             return new ResponseEntity<>(service.create(seanceId,seatId), HttpStatus.CREATED);
         } catch (Exception e) {
@@ -44,8 +46,8 @@ public class SeatScheduleController {
     }
 
 
-    @GetMapping("/findById")
-    @ApiOperation("Поиск seatSchedule по id")
+    @GetMapping("/find/by/id")
+    @ApiOperation("Поиск по id")
     ResponseEntity<?> findById(@RequestParam Long id) {
 
         return new ResponseEntity<>(service.findById(id), HttpStatus.FOUND);
@@ -53,26 +55,20 @@ public class SeatScheduleController {
     }
 
 
-    @GetMapping("/findAll")
-    @ApiOperation("Вывод всех seatSchedule")
+    @GetMapping("/find/all")
+    @ApiOperation("Вывод всех купленных мест")
     ResponseEntity<List<SeatScheduleDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
 
     }
 
 
-    @GetMapping("/getdByRoomMovieId")
-    @ApiOperation("Поиск по id сеанса")
+    @GetMapping("/get/by/room/movie/id")
+    @ApiOperation("Вывод всех мест по id сеанса")
     ResponseEntity<List<SeatScheduleResponse>> getByRoomMovieId(@RequestParam Long roomMovieId) {
         return  ResponseEntity.ok(service.getByRoomMovieId(roomMovieId));
     }
 
-
-    @GetMapping("/finddByRoomMovieId")
-    @ApiOperation("find")
-    ResponseEntity<List<SeatScheduleDto>> find(@RequestParam Long roomMovieId) {
-        return  ResponseEntity.ok(service.findByRoomMovieId(roomMovieId));
-    }
 
 
     @DeleteMapping("/delete")

@@ -13,15 +13,16 @@ public class CinemaServiceImpl implements CinemaService {
 
     CinemaMapper mapper = CinemaMapper.INSTANCE;
 
-
     private final CinemaRep rep;
 
     public CinemaServiceImpl(CinemaRep rep) {
+
         this.rep = rep;
     }
 
     @Override
     public CinemaDto save(CinemaDto cinemaDto) {
+
         return mapper.toDto(rep.save(mapper.toEntity(cinemaDto)));
     }
 
@@ -33,22 +34,27 @@ public class CinemaServiceImpl implements CinemaService {
 
     @Override
     public CinemaDto delete(Long id) {
+
         CinemaDto cinemaDto = findById(id);
         cinemaDto.setActive(false);
         return save(cinemaDto);
+
     }
 
     @Override
     public List<CinemaDto> findAll() {
+
         return mapper.toDtos(rep.findAll());
     }
 
     @Override
     public CinemaDto create(CinemaRequest cinema) {
+
         CinemaDto cinemaDto = new CinemaDto();
         cinemaDto.setName(cinema.getName());
         cinemaDto.setAddress(cinema.getAddress());
         cinemaDto.setLogo(cinema.getLogo());
+
         return save(cinemaDto);
     }
 }

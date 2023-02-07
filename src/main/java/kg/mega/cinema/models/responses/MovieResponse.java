@@ -1,25 +1,20 @@
-package kg.mega.cinema.models.dto;
+package kg.mega.cinema.models.responses;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.util.Date;
-
 @Getter
 @Setter
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class MovieDto {
+@FieldDefaults(level= AccessLevel.PRIVATE)
+public class MovieResponse {
 
     Long id;
     String definition;
     String name;
     Double rating;
     String pg;
-    boolean active;
     String image;
-    Date addDate;
-    Date updateDate;
 
 }

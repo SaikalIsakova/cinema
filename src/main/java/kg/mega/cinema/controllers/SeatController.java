@@ -20,8 +20,8 @@ public class SeatController {
     @Autowired
     private SeatService service;
 
-    @PostMapping("/create")
-    @ApiOperation("create")
+    @PostMapping("/save")
+    @ApiOperation("Сохранение")
     ResponseEntity<?> create(@ModelAttribute SeatRequest request) {
         try {
             return new ResponseEntity<>(service.create(request), HttpStatus.CREATED);

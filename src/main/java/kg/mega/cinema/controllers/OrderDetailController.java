@@ -31,18 +31,7 @@ public class OrderDetailController {
     }
 
 
-
-    @PostMapping("/create")
-    @ApiOperation("Сохранение")
-    ResponseEntity<?> create(@RequestParam List<Long>seatScheduleId) {
-        try {
-            return new ResponseEntity<>(service.create(seatScheduleId), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }
-    }
-
-    @GetMapping("/findById")
+    @GetMapping("/find/by/id")
     @ApiOperation("Поиск деталей брони по id")
     ResponseEntity<?> findById(@RequestParam Long id) {
 
@@ -52,7 +41,7 @@ public class OrderDetailController {
 
 
     @GetMapping("/booking")
-    @ApiOperation("booking")
+    @ApiOperation("Покупка билета")
     ResponseEntity<?> booking(@RequestParam Long id) {
 
         return new ResponseEntity<>(service.booking(id), HttpStatus.FOUND);
@@ -60,7 +49,7 @@ public class OrderDetailController {
     }
 
 
-    @GetMapping("/findAll")
+    @GetMapping("/find/all")
     @ApiOperation("Вывод всех деталей брони")
     ResponseEntity<List<OrderDetailDto>> findAll() {
         return ResponseEntity.ok(service.findAll());

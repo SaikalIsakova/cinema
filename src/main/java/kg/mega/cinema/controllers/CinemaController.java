@@ -21,18 +21,9 @@ public class CinemaController {
     @Autowired
     private CinemaService service;
 
+
     @PostMapping("/save")
     @ApiOperation("Сохранение")
-    ResponseEntity<?> save(@RequestBody CinemaDto cinemaDto) {
-        try {
-            return new ResponseEntity<>(service.save(cinemaDto), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }
-    }
-
-    @PostMapping("/create")
-    @ApiOperation("Создание")
     ResponseEntity<?> create(@ModelAttribute CinemaRequest cinema) {
         try {
             return new ResponseEntity<>(service.create(cinema), HttpStatus.CREATED);
@@ -42,18 +33,21 @@ public class CinemaController {
     }
 
 
-    @GetMapping("/findById")
+    @GetMapping("/find/by/id")
     @ApiOperation("Поиск кинотеатра по id")
     ResponseEntity<?> findById(@RequestParam Long id) {
 
         return new ResponseEntity<>(service.findById(id), HttpStatus.FOUND);
 
     }
-    @GetMapping("/findAll")
+
+
+    @GetMapping("/find/all")
     @ApiOperation("Вывод всех кинотеатров")
     ResponseEntity<List<CinemaDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
+
 
     @DeleteMapping("/delete")
     @ApiOperation("Удаление")

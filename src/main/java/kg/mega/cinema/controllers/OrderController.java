@@ -32,7 +32,7 @@ public class OrderController {
 
 
     @PostMapping("/create")
-    @ApiOperation("create")
+    @ApiOperation("Создание заявки")
     ResponseEntity<?> create() {
         try {
             return new ResponseEntity<>(service.create(), HttpStatus.CREATED);
@@ -41,18 +41,24 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/findById")
+
+
+    @GetMapping("/find/by/id")
     @ApiOperation("Поиск брони по id")
     ResponseEntity<?> findById(@RequestParam Long id) {
 
         return new ResponseEntity<>(service.findById(id), HttpStatus.FOUND);
 
     }
-    @GetMapping("/findAll")
+
+
+    @GetMapping("/find/all")
     @ApiOperation("Вывод брони")
     ResponseEntity<List<OrderDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
+
+
 
     @DeleteMapping("/delete")
     @ApiOperation("Удаление")

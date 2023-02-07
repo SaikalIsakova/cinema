@@ -2,6 +2,7 @@ package kg.mega.cinema.dao;
 
 import kg.mega.cinema.models.entities.RoomMovie;
 import kg.mega.cinema.models.entities.RoomMoviePrice;
+import kg.mega.cinema.models.enums.PriceType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -18,8 +19,8 @@ public interface RoomMoviePriceRep extends JpaRepository<RoomMoviePrice, Long> {
             "where s.dateOfFilms=:date and rm.movie.id=:movieId")
     List<RoomMoviePrice> getPriceByMovieIdAndDate(Long movieId, LocalDate date);
 
-    @Query("select rmp from RoomMoviePrice rmp inner join SeatSchedule ss on rmp.id=ss.roomMoviePrice.id where ss.id=:seatScheduleId")
-    RoomMoviePrice getPriceBySeatSchedule(Long seatScheduleId);
 
-
+    @Query("select rmp from RoomMoviePrice rmp inner join Price tp on tp.id = rmp.price.id where rmp.roomMovie.id=:roomMovieId and tp.priceType=:priceType")
+    RoomMoviePrice findByPriceType(Long roomMovieId, PriceType priceType);
 }
+

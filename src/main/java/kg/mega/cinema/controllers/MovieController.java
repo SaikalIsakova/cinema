@@ -2,15 +2,12 @@ package kg.mega.cinema.controllers;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import kg.mega.cinema.models.dto.MovieDto;
 import kg.mega.cinema.models.requests.MovieRequest;
 import kg.mega.cinema.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Api(tags = "Фильм")
 @RestController
@@ -22,16 +19,6 @@ public class MovieController {
 
     @PostMapping("/save")
     @ApiOperation("Сохранение")
-    ResponseEntity<?> save(@RequestBody MovieDto movieDto) {
-        try {
-            return new ResponseEntity<>(service.save(movieDto), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }
-    }
-
-    @PostMapping("/create")
-    @ApiOperation("Создание")
     ResponseEntity<?> create(@ModelAttribute MovieRequest movie) {
         try {
             return new ResponseEntity<>(service.create(movie), HttpStatus.CREATED);
@@ -40,23 +27,27 @@ public class MovieController {
         }
     }
 
-    @GetMapping("/findById")
+
+    @GetMapping("/find/by/id")
     @ApiOperation("Поиск фильма по id")
     ResponseEntity<?> findById(@RequestParam Long id) {
 
         return new ResponseEntity<>(service.findById(id), HttpStatus.FOUND);
 
     }
-    @GetMapping("/findAll")
+
+
+    @GetMapping("/find/all")
     @ApiOperation("Вывод всех фильмов")
-    ResponseEntity<List<MovieDto>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+    ResponseEntity<?> findAll() {
+        return ResponseEntity.ok(service.findAllMovies());
     }
+
 
 
     @GetMapping("/getAllMovies")
     @ApiOperation("Вывод фильмов постранично")
-    ResponseEntity<List<String>> getAllMovies(@RequestParam int limit,@RequestParam int offset) {
+    ResponseEntity<?> getAllMovies(@RequestParam int limit,@RequestParam int offset) {
         return ResponseEntity.ok(service.getPaginationResult(limit, offset));
     }
 

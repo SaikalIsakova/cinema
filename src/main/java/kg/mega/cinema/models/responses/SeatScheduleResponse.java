@@ -11,7 +11,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SeatScheduleResponse {
 
-
         Long id;
         SeatStatus status;
         int row;

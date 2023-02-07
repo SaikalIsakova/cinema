@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Api(tags = "Room-movie-price")
+@Api(tags = "Сеанс-цена")
 @RestController
 @RequestMapping("/api/v1/room/movie/price")
 public class RoomMoviePriceController {
@@ -33,7 +33,7 @@ public class RoomMoviePriceController {
     }
 
 
-    @GetMapping("/findById")
+    @GetMapping("/find/by/id")
     @ApiOperation("Поиск по id")
     ResponseEntity<?> findById(@RequestParam Long id) {
 
@@ -42,39 +42,22 @@ public class RoomMoviePriceController {
     }
 
 
-    @GetMapping("/findBySched")
-    @ApiOperation("Поиск по id")
-    ResponseEntity<?> getPriceBySeatSched(@RequestParam Long id) {
 
-        return new ResponseEntity<>(service.getPriceBySeatSchedule(id), HttpStatus.FOUND);
-
-    }
-
-
-
-    @GetMapping("/get")
+    @GetMapping("/get/by/movie/id/and/date")
     @ApiOperation("Поиск сеанса по id фильма и дате")
-    ResponseEntity<?> get(@RequestParam Long movieId, @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
+    ResponseEntity<?> getByMovieIdAndDate(@RequestParam Long movieId, @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
 
         return new ResponseEntity<>(service.getSeanceOutput(movieId,date), HttpStatus.FOUND);
 
     }
 
 
-    @GetMapping("/findAll")
+    @GetMapping("/find/all")
     @ApiOperation("Вывод всех room-movie-price")
-    ResponseEntity<List<RoomMoviePriceDto>> findAll() {
+    ResponseEntity<?> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 
-
-
-    @GetMapping("/getPrice")
-    @ApiOperation("Вывод-price")
-    ResponseEntity<List<RoomMoviePriceDto>> getPrice(@RequestParam Long movieId,@RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
-
-        return ResponseEntity.ok(service.getPriceByMovieIdAndDate(movieId,date));
-    }
 
 
     @DeleteMapping("/delete")
