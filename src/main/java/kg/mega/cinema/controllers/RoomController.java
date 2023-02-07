@@ -41,8 +41,8 @@ public class RoomController {
 
     @GetMapping("/find/all")
     @ApiOperation("Вывод всех залов")
-    ResponseEntity<List<RoomDto>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+    ResponseEntity<?> findAllRooms() {
+        return ResponseEntity.ok(service.findAllRooms());
     }
 
 

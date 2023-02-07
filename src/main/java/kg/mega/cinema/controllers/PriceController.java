@@ -48,7 +48,7 @@ public class PriceController {
 
 
     @GetMapping("/get/all/prices")
-    @ApiOperation("вывод всех мест")
+    @ApiOperation("вывод всех цен")
     ResponseEntity<?> getAllPrices() {
         return ResponseEntity.ok(service.getAllPrices());
     }

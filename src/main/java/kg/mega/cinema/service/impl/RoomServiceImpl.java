@@ -5,10 +5,12 @@ import kg.mega.cinema.mappers.RoomMapper;
 import kg.mega.cinema.models.dto.CinemaDto;
 import kg.mega.cinema.models.dto.RoomDto;
 import kg.mega.cinema.models.requests.RoomRequest;
+import kg.mega.cinema.models.responses.RoomResp;
 import kg.mega.cinema.service.CinemaService;
 import kg.mega.cinema.service.RoomService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -68,5 +70,25 @@ public class RoomServiceImpl implements RoomService {
     public RoomDto findByRoomMovieId(Long roomMovieId) {
 
         return mapper.toDto(rep.findByRoomMovieId(roomMovieId));
+    }
+
+    @Override
+    public List<RoomResp> findAllRooms() {
+
+        List<RoomDto>roomList=findAll();
+
+        List<RoomResp>responseList=new ArrayList<>();
+
+        for(RoomDto item: roomList){
+
+            RoomResp room=new RoomResp();
+            room.setId(item.getId());
+            room.setName(item.getName());
+            room.setCinema(item.getCinema().getName());
+            room.setSeatCount(item.getSeatCount());
+
+            responseList.add(room);
+        }
+        return responseList;
     }
 }

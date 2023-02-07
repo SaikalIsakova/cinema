@@ -42,9 +42,12 @@ public class ScheduleController {
 
     @GetMapping("/find/all")
     @ApiOperation("Вывод всех расписаний")
-    ResponseEntity<List<ScheduleDto>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+    ResponseEntity<?> findAllSchedules() {
+
+
+        return ResponseEntity.ok(service.findAllSchedules());
     }
+
 
     @DeleteMapping("/delete")
     @ApiOperation("Удаление")

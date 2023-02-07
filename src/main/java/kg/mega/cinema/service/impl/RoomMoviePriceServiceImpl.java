@@ -106,7 +106,7 @@ public class RoomMoviePriceServiceImpl implements RoomMoviePriceService {
                 if (item.getSchedule().getId().equals(item1.getRoomMovie().getSchedule().getId())) {
                     if (item1.getRoomMovie().getId().equals(item.getId())) {
 
-                        roomMovieResp.setId(item1.getRoomMovie().getSchedule().getId());
+                        roomMovieResp.setSeanceId(item1.getRoomMovie().getId());
                         roomMovieResp.setPrice(item1.getPrice().getPrice());
                         roomMovieResp.setStartTime(item1.getRoomMovie().getSchedule().getStartTime());
                         roomMovieResp.setPriceType(item1.getPrice().getPriceType());

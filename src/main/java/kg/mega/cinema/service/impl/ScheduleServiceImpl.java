@@ -3,11 +3,13 @@ package kg.mega.cinema.service.impl;
 import kg.mega.cinema.dao.ScheduleRep;
 import kg.mega.cinema.mappers.ScheduleMapper;
 import kg.mega.cinema.models.dto.ScheduleDto;
+import kg.mega.cinema.models.responses.ScheduleResponse;
 import kg.mega.cinema.service.ScheduleService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
@@ -55,5 +57,23 @@ public class ScheduleServiceImpl implements ScheduleService {
         scheduleDto.setStartTime(startTime);
 
         return save(scheduleDto);
+    }
+
+    @Override
+    public List<ScheduleResponse> findAllSchedules() {
+        List<ScheduleDto>scheduleList=findAll();
+
+        List<ScheduleResponse>responseList=new ArrayList<>();
+
+        for(ScheduleDto item:scheduleList){
+
+            ScheduleResponse response=new ScheduleResponse();
+            response.setId(item.getId());
+            response.setDate(item.getDateOfFilms());
+            response.setStartTime(item.getStartTime());
+
+            responseList.add(response);
+        }
+        return responseList;
     }
 }
