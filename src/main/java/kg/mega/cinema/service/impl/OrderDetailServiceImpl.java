@@ -1,6 +1,7 @@
 package kg.mega.cinema.service.impl;
 
 import kg.mega.cinema.dao.OrderDetailRep;
+import kg.mega.cinema.exceptions.OrderDetailNotFoundException;
 import kg.mega.cinema.mappers.OrderDetailMapper;
 import kg.mega.cinema.models.dto.OrderDetailDto;
 import kg.mega.cinema.models.dto.OrderDto;
@@ -41,7 +42,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     @Override
     public OrderDetailDto findById(Long id) {
 
-        return mapper.toDto(rep.findById(id).orElseThrow(()->new RuntimeException("Order detail not found!")));
+        return mapper.toDto(rep.findById(id).orElseThrow(()->new OrderDetailNotFoundException("Order-detail not found!")));
     }
 
     @Override

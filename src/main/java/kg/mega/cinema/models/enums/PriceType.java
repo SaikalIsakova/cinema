@@ -1,8 +1,7 @@
 package kg.mega.cinema.models.enums;
 
 public enum PriceType {
-    ADULTS,
+    ADULT,
     CHILD,
-    STUDENT;
 
 }

@@ -24,7 +24,7 @@ public class CinemaController {
 
     @PostMapping("/save")
     @ApiOperation("Сохранение")
-    ResponseEntity<?> create(@ModelAttribute CinemaRequest cinema) {
+    ResponseEntity<?> create(@RequestBody CinemaRequest cinema) {
         try {
             return new ResponseEntity<>(service.create(cinema), HttpStatus.CREATED);
         } catch (Exception e) {

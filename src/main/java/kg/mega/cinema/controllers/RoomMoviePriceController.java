@@ -2,7 +2,6 @@ package kg.mega.cinema.controllers;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import kg.mega.cinema.models.dto.RoomMoviePriceDto;
 import kg.mega.cinema.models.requests.RoomMoviePriceRequest;
 import kg.mega.cinema.service.RoomMoviePriceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Api(tags = "Сеанс-цена")
 @RestController
@@ -47,7 +45,7 @@ public class RoomMoviePriceController {
     @ApiOperation("Поиск сеанса по id фильма и дате")
     ResponseEntity<?> getByMovieIdAndDate(@RequestParam Long movieId, @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
 
-        return new ResponseEntity<>(service.getSeanceOutput(movieId,date), HttpStatus.FOUND);
+        return new ResponseEntity<>(service.getSeanceByDateAndMovieId(movieId,date), HttpStatus.FOUND);
 
     }
 

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@Api(tags = "Билет")
+@Api(tags = "Расписание мест")
 @RestController
 @RequestMapping("/api/v1/seatSchedule")
 public class SeatScheduleController {

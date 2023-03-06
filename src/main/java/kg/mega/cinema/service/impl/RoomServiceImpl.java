@@ -1,13 +1,16 @@
 package kg.mega.cinema.service.impl;
 
 import kg.mega.cinema.dao.RoomRep;
+import kg.mega.cinema.exceptions.RoomNotFoundException;
 import kg.mega.cinema.mappers.RoomMapper;
 import kg.mega.cinema.models.dto.CinemaDto;
 import kg.mega.cinema.models.dto.RoomDto;
+import kg.mega.cinema.models.dto.SeatDto;
 import kg.mega.cinema.models.requests.RoomRequest;
 import kg.mega.cinema.models.responses.RoomResp;
 import kg.mega.cinema.service.CinemaService;
 import kg.mega.cinema.service.RoomService;
+import kg.mega.cinema.service.SeatService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,7 +38,7 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public RoomDto findById(Long id) {
 
-        return mapper.toDto(rep.findById(id).orElseThrow(() -> new RuntimeException("Room not found!")));
+        return mapper.toDto(rep.findById(id).orElseThrow(() -> new RoomNotFoundException("Room not found!")));
     }
 
     @Override
@@ -62,6 +65,7 @@ public class RoomServiceImpl implements RoomService {
         roomDto.setName(room.getName());
         roomDto.setSeatCount(room.getSeatCount());
         roomDto.setCinema(cinema);
+
 
         return save(roomDto);
     }

@@ -19,7 +19,7 @@ public class MovieController {
 
     @PostMapping("/save")
     @ApiOperation("Сохранение")
-    ResponseEntity<?> create(@ModelAttribute MovieRequest movie) {
+    ResponseEntity<?> create(@RequestBody MovieRequest movie) {
         try {
             return new ResponseEntity<>(service.create(movie), HttpStatus.CREATED);
         } catch (Exception e) {

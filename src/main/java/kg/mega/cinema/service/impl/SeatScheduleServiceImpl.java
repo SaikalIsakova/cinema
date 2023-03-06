@@ -1,6 +1,7 @@
 package kg.mega.cinema.service.impl;
 
 import kg.mega.cinema.dao.SeatScheduleRep;
+import kg.mega.cinema.exceptions.SeatScheduleNotFoundException;
 import kg.mega.cinema.mappers.SeatScheduleMapper;
 import kg.mega.cinema.models.dto.*;
 import kg.mega.cinema.models.enums.PriceType;
@@ -47,7 +48,7 @@ public class SeatScheduleServiceImpl implements SeatScheduleService {
     @Override
     public SeatScheduleDto findById(Long id) {
 
-        return mapper.toDto(rep.findById(id).orElseThrow(() -> new RuntimeException("Seat Schedule not found!")));
+        return mapper.toDto(rep.findById(id).orElseThrow(() -> new SeatScheduleNotFoundException("SeatSchedule not found!")));
     }
 
     @Override

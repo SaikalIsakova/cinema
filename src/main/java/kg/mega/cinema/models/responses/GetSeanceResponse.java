@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @FieldDefaults(level= AccessLevel.PRIVATE)
-public class JsonResponse {
+public class GetSeanceResponse {
 
     String name;
     String image;

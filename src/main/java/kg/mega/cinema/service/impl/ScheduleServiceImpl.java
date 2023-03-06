@@ -1,6 +1,7 @@
 package kg.mega.cinema.service.impl;
 
 import kg.mega.cinema.dao.ScheduleRep;
+import kg.mega.cinema.exceptions.ScheduleNotFoundException;
 import kg.mega.cinema.mappers.ScheduleMapper;
 import kg.mega.cinema.models.dto.ScheduleDto;
 import kg.mega.cinema.models.responses.ScheduleResponse;
@@ -31,7 +32,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public ScheduleDto findById(Long id) {
 
-        return mapper.toDto(rep.findById(id).orElseThrow(()->new RuntimeException("Schedule not found!")));
+        return mapper.toDto(rep.findById(id).orElseThrow(()->new ScheduleNotFoundException("Schedule not found!")));
     }
 
     @Override

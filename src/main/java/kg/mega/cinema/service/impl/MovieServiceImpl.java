@@ -1,6 +1,7 @@
 package kg.mega.cinema.service.impl;
 
 import kg.mega.cinema.dao.MovieRep;
+import kg.mega.cinema.exceptions.MovieNotFoundException;
 import kg.mega.cinema.mappers.MovieMapper;
 import kg.mega.cinema.models.dto.MovieDto;
 import kg.mega.cinema.models.requests.MovieRequest;
@@ -94,7 +95,7 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public MovieDto findById(Long id) {
 
-        return mapper.toDto(rep.findById(id).orElseThrow(() -> new RuntimeException("Фильм не найден")));
+        return mapper.toDto(rep.findById(id).orElseThrow(() -> new MovieNotFoundException("Movie not found!")));
     }
 
     @Override

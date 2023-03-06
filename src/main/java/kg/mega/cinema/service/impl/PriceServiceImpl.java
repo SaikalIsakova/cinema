@@ -1,6 +1,7 @@
 package kg.mega.cinema.service.impl;
 
 import kg.mega.cinema.dao.PriceRep;
+import kg.mega.cinema.exceptions.PriceNotFoundException;
 import kg.mega.cinema.mappers.PriceMapper;
 import kg.mega.cinema.models.dto.PriceDto;
 import kg.mega.cinema.models.requests.PriceRequest;
@@ -62,7 +63,7 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public PriceDto findById(Long id) {
 
-        return mapper.toDto(rep.findById(id).orElseThrow(()->new RuntimeException("Price not found!")));
+        return mapper.toDto(rep.findById(id).orElseThrow(()->new PriceNotFoundException("Price not found!")));
     }
 
     @Override

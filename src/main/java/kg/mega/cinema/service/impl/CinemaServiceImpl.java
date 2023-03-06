@@ -1,6 +1,7 @@
 package kg.mega.cinema.service.impl;
 
 import kg.mega.cinema.dao.CinemaRep;
+import kg.mega.cinema.exceptions.CinemaNotFoundException;
 import kg.mega.cinema.mappers.CinemaMapper;
 import kg.mega.cinema.models.dto.CinemaDto;
 import kg.mega.cinema.models.requests.CinemaRequest;
@@ -29,7 +30,7 @@ public class CinemaServiceImpl implements CinemaService {
 
     @Override
     public CinemaDto findById(Long id) {
-        return mapper.toDto(rep.findById(id).orElseThrow(() -> new RuntimeException("Cinema not found!")));
+        return mapper.toDto(rep.findById(id).orElseThrow(() -> new CinemaNotFoundException("Cinema not found!")));
     }
 
     @Override

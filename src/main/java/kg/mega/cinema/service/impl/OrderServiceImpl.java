@@ -1,6 +1,7 @@
 package kg.mega.cinema.service.impl;
 
 import kg.mega.cinema.dao.OrderRep;
+import kg.mega.cinema.exceptions.OrderNotFoundException;
 import kg.mega.cinema.mappers.OrderMapper;
 import kg.mega.cinema.models.dto.OrderDto;
 import kg.mega.cinema.service.OrderService;
@@ -27,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto findById(Long id) {
 
-        return mapper.toDto(rep.findById(id).orElseThrow(() -> new RuntimeException("Order not found!")));
+        return mapper.toDto(rep.findById(id).orElseThrow(() -> new OrderNotFoundException("Order not found!")));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package kg.mega.cinema.service.impl;
 
 import kg.mega.cinema.dao.RoomMovieRep;
+import kg.mega.cinema.exceptions.RoomMovieNotFoundException;
 import kg.mega.cinema.mappers.RoomMovieMapper;
 import kg.mega.cinema.models.dto.MovieDto;
 import kg.mega.cinema.models.dto.RoomDto;
@@ -42,7 +43,7 @@ public class RoomMovieServiceImpl implements RoomMovieService {
     @Override
     public RoomMovieDto findById(Long id) {
 
-        return mapper.toDto(rep.findById(id).orElseThrow(()->new RuntimeException("RoomMovie not found!")));
+        return mapper.toDto(rep.findById(id).orElseThrow(()->new RoomMovieNotFoundException("RoomMovie not found!")));
     }
 
     @Override

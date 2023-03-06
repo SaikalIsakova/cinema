@@ -9,4 +9,6 @@ import org.mapstruct.factory.Mappers;
 public interface MovieMapper extends BaseMapper<Movie, MovieDto>{
     MovieMapper INSTANCE= Mappers.getMapper(MovieMapper.class);
 
+    
+
 }
